@@ -293,7 +293,7 @@ const FLAGS = {
   NL:'<svg class="flag" preserveAspectRatio="xMidYMid slice" viewBox="0 0 9 6"><rect width="9" height="6" fill="#21468B"/><rect width="9" height="4" fill="#fff"/><rect width="9" height="2" fill="#AE1C28"/></svg>',
   PL:'<svg class="flag" preserveAspectRatio="xMidYMid slice" viewBox="0 0 8 5"><rect width="8" height="5" fill="#DC143C"/><rect width="8" height="2.5" fill="#fff"/></svg>',
 };
-const RATES = {GBP:[1,"£"], EUR:[1.17,"€"], USD:[1.33,"$"], AUD:[2.02,"A$"], CAD:[1.83,"C$"]};
+const RATES = {GBP:[1,"£"], EUR:[1.177,"€"], USD:[1.324,"$"], AUD:[1.905,"A$"], CAD:[1.888,"C$"]};  // fallback; replaced on load by Wix's own daily rates (the ones Wix checkout uses)
 const DISC = 0.15;
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -710,17 +710,27 @@ async function wixToken(){
   store.set("wixTok", JSON.stringify({ tok: r.access_token, exp: Date.now() + r.expires_in * 1000 }));
   return r.access_token;
 }
+// Wix checkout shows (and charges in) the visitor's currency when the checkout page gets ?currency=XXX,
+// the same switch littleowlshut.com uses. The redirect URL wraps the checkout address in its redirectUrl parameter.
+function withCurrency(full){
+  if(!PREFS.cur || PREFS.cur==="GBP") return full;
+  try{ const u = new URL(full), inner = u.searchParams.get("redirectUrl");
+    if(inner){ const c = new URL(inner); c.searchParams.set("currency", PREFS.cur); u.searchParams.set("redirectUrl", c.toString()); }
+    else u.searchParams.set("currency", PREFS.cur);
+    return u.toString(); }catch(e){ return full; }
+}
 async function checkout(){
   const b = basketGet(); if(!b.length) return;
   const go = $("#bGo"); go.disabled = true; go.textContent = BT.wait;
   try{
     const tok = await wixToken();
-    const co = await wixFetch("ecom/v1/checkouts", { channelType: "WEB",
-      lineItems: b.map(x=>({ quantity: 1, catalogReference: { appId: WIX.storesAppId, catalogItemId: x.pid } })) }, tok);
+    // Wix Cart V2 (the current eCommerce API; the old Checkout API is retired on 1 Feb 2027). The cart id is the checkout id.
+    const cart = (await wixFetch("ecom/v2/carts", {
+      catalogItems: b.map(x=>({ quantity: 1, catalogReference: { appId: WIX.storesAppId, catalogItemId: x.pid } })) }, tok)).cart;
     const back = new URL("thanks.html", document.baseURI).href;
-    const rs = await wixFetch("redirect-session/v1/redirect-session", { ecomCheckout: { checkoutId: co.checkout.id },
+    const rs = await wixFetch("redirect-session/v1/redirect-session", { ecomCheckout: { checkoutId: cart.id },
       callbacks: { postFlowUrl: location.href, thankYouPageUrl: back } }, tok);
-    location.href = rs.redirectSession.fullUrl;
+    location.href = withCurrency(rs.redirectSession.fullUrl);
   }catch(e){
     console.error(e); store.set("wixTok", ""); go.disabled = false; go.textContent = BT.go; toast(BT.err);
   }
@@ -773,5 +783,14 @@ $("#basketBtn").onclick = openBasket; basketRender();
 let tt; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("show"),2600); }
 window.addEventListener("hashchange", route);
 route();
+// use Wix's own exchange rates, so the price shown here matches the Wix checkout
+(async () => { try{
+  const tok = await wixToken();
+  const got = await Promise.all(Object.keys(RATES).filter(c=>c!=="GBP").map(async c => {
+    const r = await fetch(`https://www.wixapis.com/currency_converter/v1/currencies/rate/GBP/convert/${c}`, {headers:{Authorization:tok}});
+    const j = await r.json(); return [c, Number(j.rate.value) / 10**j.rate.decimalPlaces]; }));
+  got.forEach(([c,v]) => { if(v > 0) RATES[c][0] = v; });
+  if(PREFS.cur !== "GBP"){ route(); basketRender(); }
+}catch(e){} })();
 </script>
 </body></html>
