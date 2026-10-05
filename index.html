@@ -468,7 +468,7 @@ const tCat = c => (T[PREFS.ui]||T.EN).cats[c] || c;
 const loc = p => Object.assign({}, p, (p.tr||{})[PREFS.ui] || {});
 const edition = (p, code) => p.languages.find(l=>l.code===code);
 const edImgs = (p, code) => (edition(p, code)||{}).images || p.images;
-const langName = c => { try{ return new Intl.DisplayNames([PREFS.ui==="AUTO"?"en":PREFS.ui.toLowerCase()], {type:"language"}).of({DA:"da"}[c]||c.toLowerCase()); }catch(e){ return LANG_NAMES[c]||c; } };
+const langName = c => { let n; try{ n = new Intl.DisplayNames([PREFS.ui==="AUTO"?"en":PREFS.ui.toLowerCase()], {type:"language"}).of(c.toLowerCase()); }catch(e){} n = n && n.toLowerCase()!==c.toLowerCase() ? n : (LANG_NAMES[c]||c); return n.charAt(0).toUpperCase() + n.slice(1); };
 const bio = d => ((d.tr||{})[PREFS.ui]||{}).bio || d.bio;
 const fmt = gbp => { const [r,s] = RATES[PREFS.cur]; return s + (gbp*r).toFixed(2); };
 let timer;
@@ -532,7 +532,7 @@ function card(p){
     <div class="cb">
       <h3>${esc(P.title)}</h3>
       <div class="by">${t("by_name",{n:esc(p.designerName)})}</div>
-      <div class="by pdfl">PDF: ${p.languages.map(l=>`${FLAGS[l.code]||""} ${esc(LANG_NAMES[l.code]||l.code)}`).join(" · ")}</div>
+      <div class="by pdfl">PDF: ${p.languages.map(l=>`${FLAGS[l.code]||""} ${esc(langName(l.code))}`).join(" · ")}</div>
       <div class="row"><span class="badge">${tSkill(p.skill)}</span></div>
       <div class="row"><span class="price">${fmt(p.price)}</span><span class="by">${t("hook_card",{m:p.hookLabelShort})} · ${p.sizeShort}</span></div>
       ${p.sameAs.length?`<div class="also">${t("same_card",{t:esc(loc(DATA.pages.find(x=>x.slug===p.sameAs[0].slug)||p.sameAs[0]).title)})}</div>`:""}
@@ -566,7 +566,7 @@ function renderPattern(base){
       ${same?`<div class="same"><a href="#/${same.slug}" style="color:inherit">${esc(p.sameAsNote)}</a></div>`:""}
       <div class="price" id="priceBox"></div>
       ${missing.length?`<div class="langnote">${t("not_in",{l:missing.map(langName).join(", "),a:p.languages.map(l=>langName(l.code)).join(", ")})}</div>`:""}<fieldset><legend>${t("legend")}</legend><div class="langs" id="langs">
-        ${p.languages.map(l=>`<label><input type="radio" name="lang" value="${l.code}" ${l.code===lang?"checked":""}>${FLAGS[l.code]||""}${LANG_NAMES[l.code]}${l.buy?"":` <span class="soon">· ${t("soon")}</span>`}</label>`).join("")}
+        ${p.languages.map(l=>`<label><input type="radio" name="lang" value="${l.code}" ${l.code===lang?"checked":""}>${FLAGS[l.code]||""}${esc(langName(l.code))}${l.buy?"":` <span class="soon">· ${t("soon")}</span>`}</label>`).join("")}
       </div></fieldset>
       <div id="buyZone"></div>
       <p class="trust"><span>${t("trust1")}</span><span>${t("trust2",{n:p.pages})}</span><span id="trust3"></span></p>
@@ -653,19 +653,19 @@ function renderPattern(base){
     $("#trust3").textContent = l.code==="EN" ? t("trust3") : t("trust3_other",{l:langName(l.code)});
     $("#termsLine").textContent = l.code==="EN" ? t("terms_en") : t("terms_other",{l:langName(l.code)});
     showPhotos(l.code);
-    $("#mPrice").textContent = fmt(now); $("#mLang").textContent = LANG_NAMES[l.code] + " PDF";
+    $("#mPrice").textContent = fmt(now); $("#mLang").textContent = "PDF: " + langName(l.code);
     if(l.buy==="wix"){
-      $("#buyZone").innerHTML = `<button class="cta" type="button" id="add">${t("add")} · ${esc(LANG_NAMES[l.code]||l.code)} PDF · ${fmt(now)}</button><p class="note" style="margin-top:8px">${t("secure")}</p>`;
+      $("#buyZone").innerHTML = `<button class="cta" type="button" id="add">${t("add")} · PDF: ${esc(langName(l.code))} · ${fmt(now)}</button><p class="note" style="margin-top:8px">${t("secure")}</p>`;
       $("#add").onclick = add; $("#mBuy").textContent=t("add"); $("#mBuy").onclick=add;
     } else if(l.buy==="ravelry"){
-      $("#buyZone").innerHTML = `<a class="cta alt" href="${p.ravelryUrl}" target="_blank" rel="noopener">${t("rav_btn",{l:LANG_NAMES[l.code]})}</a><p class="note" style="margin-top:8px">${t("rav_note")}</p>`;
-      $("#mBuy").textContent=t("rav_btn",{l:LANG_NAMES[l.code]}); $("#mBuy").onclick=()=>window.open(p.ravelryUrl,"_blank","noopener");
+      $("#buyZone").innerHTML = `<a class="cta alt" href="${p.ravelryUrl}" target="_blank" rel="noopener">${t("rav_btn",{l:langName(l.code)})}</a><p class="note" style="margin-top:8px">${t("rav_note")}</p>`;
+      $("#mBuy").textContent=t("rav_btn",{l:langName(l.code)}); $("#mBuy").onclick=()=>window.open(p.ravelryUrl,"_blank","noopener");
     } else {
       $("#buyZone").innerHTML = `<button class="cta alt" type="button" id="ask">${t("notify_btn")}</button><p class="note" style="margin-top:8px">${t("notify_note")}</p>`;
       $("#ask").onclick=()=>location.href="mailto:info@littleowlshut.com?subject="+encodeURIComponent("Pattern "+p.id+" in "+LANG_NAMES[l.code]); $("#mBuy").textContent=t("notify_btn"); $("#mBuy").onclick=()=>$("#ask").click();
     }
   }
-  function add(){ const l=p.languages.find(x=>x.code===lang); basketAdd({pid:l.pid, slug:p.slug, title:p.title, lang:l.code, price:l.price ?? p.price, img:edImgs(base, l.code).card}); toast(t("added",{t:p.title,l:LANG_NAMES[lang]})); }
+  function add(){ const l=p.languages.find(x=>x.code===lang); basketAdd({pid:l.pid, slug:p.slug, title:p.title, lang:l.code, price:l.price ?? p.price, img:edImgs(base, l.code).card}); toast(t("added",{t:p.title,l:langName(lang)})); }
   $("#langs").onchange = e => { lang = e.target.value; renderBuy(); };
   renderBuy(); window._rerender = renderBuy;
 
@@ -674,12 +674,7 @@ function renderPattern(base){
 
 /* ---------- basket + Wix checkout ---------- */
 const WIX = { clientId: "cc40edea-1299-4afb-b87f-dd336a1dca83", storesAppId: "215238eb-22a5-4c36-9e7b-e7c08025e04e" };
-const BT = {
-  title: "Your basket", total: "Total", remove: "Remove", go: "Checkout securely with Wix",
-  wait: "Opening secure checkout…", err: "Sorry, checkout didn't open. Please try again, or email info@littleowlshut.com.",
-  note: "You'll pay on our secure Wix checkout (card, PayPal, Apple Pay, Google Pay, iDEAL). Your PDF download link arrives straight after payment.",
-  empty: "Your basket is empty", dup: "Already in your basket"
-};
+const BT = new Proxy({}, { get: (_, k) => k==="empty" ? t("empty_basket") : t("b_"+k) });
 function basketGet(){ try{ return JSON.parse(store.get("hubBasket")) || [] }catch(e){ return [] } }
 function basketSet(b){ store.set("hubBasket", JSON.stringify(b)); basketRender(); }
 function basketAdd(item){
@@ -693,7 +688,7 @@ function basketRender(){
   $("#bTitle").textContent = BT.title;
   box.innerHTML = b.length ? b.map((x,i)=>`<div style="display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center">
       <img src="${x.img}" alt="" style="width:56px;height:45px;object-fit:cover;border-radius:6px">
-      <div><b>${esc(x.title)}</b><br><small>${FLAGS[x.lang]||""} ${esc(LANG_NAMES[x.lang]||x.lang)} PDF · ${fmt(x.price)}</small></div>
+      <div><b>${esc(x.title)}</b><br><small>${FLAGS[x.lang]||""} PDF: ${esc(langName(x.lang))} · ${fmt(x.price)}</small></div>
       <button type="button" class="clear" data-i="${i}">${BT.remove}</button></div>`).join("") : `<p>${BT.empty}</p>`;
   box.querySelectorAll("button[data-i]").forEach(btn=>btn.onclick=()=>{ const nb=basketGet(); nb.splice(+btn.dataset.i,1); basketSet(nb); });
   const sum = b.reduce((s,x)=>s+(+x.price),0);
