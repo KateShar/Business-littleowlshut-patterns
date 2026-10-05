@@ -792,5 +792,19 @@ route();
   got.forEach(([c,v]) => { if(v > 0) RATES[c][0] = v; });
   if(PREFS.cur !== "GBP"){ route(); basketRender(); }
 }catch(e){} })();
+// use the current Wix prices (a price changed in the Wix dashboard shows here straight away, no rebuild needed)
+(async () => { try{
+  const tok = await wixToken();
+  const ids = [...new Set(DATA.pages.flatMap(p => p.languages.map(l => l.pid)).filter(Boolean))];
+  const r = await fetch("https://www.wixapis.com/stores/v3/products/search", {method:"POST", headers:{"Content-Type":"application/json", Authorization:tok},
+    body: JSON.stringify({search:{filter:{id:{$in:ids}}, cursorPaging:{limit:100}}})});
+  const live = Object.fromEntries(((await r.json()).products||[]).map(x => [x.id, Number(x.actualPriceRange?.minValue?.amount)]));
+  let changed = false;
+  DATA.pages.forEach(p => { p.languages.forEach(l => { const v = live[l.pid]; if(v > 0 && v !== l.price){ l.price = v; changed = true; } });
+    const en = p.languages.find(l => l.code === "EN"); if(en && en.price !== p.price){ p.price = en.price; changed = true; } });
+  const b = basketGet(); let bc = false; b.forEach(x => { const v = live[x.pid]; if(v > 0 && v !== x.price){ x.price = v; bc = true; } });
+  if(bc) basketSet(b);
+  if(changed) route();
+}catch(e){} })();
 </script>
 </body></html>
