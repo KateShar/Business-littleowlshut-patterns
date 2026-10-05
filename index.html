@@ -103,6 +103,7 @@ dialog.settings::backdrop{background:rgba(30,22,17,.45)}
 .flags{display:flex; gap:4px; align-items:center}
 .card .price{font:700 1.05rem var(--display)}
 .card .pdfl{display:flex; flex-wrap:wrap; gap:2px 6px; align-items:center}
+.card .pdfl .lg{white-space:nowrap; display:inline-flex; align-items:center; gap:4px}
 .card .pdfl img,.card .pdfl svg{width:18px; height:auto; vertical-align:-3px}
 .card .also{font-size:.78rem; color:var(--muted); border-top:1px dashed var(--line); padding-top:6px}
 .empty{padding:40px 0; text-align:center; color:var(--muted)}
@@ -532,7 +533,7 @@ function card(p){
     <div class="cb">
       <h3>${esc(P.title)}</h3>
       <div class="by">${t("by_name",{n:esc(p.designerName)})}</div>
-      <div class="by pdfl">PDF: ${p.languages.map(l=>`${FLAGS[l.code]||""} ${esc(langName(l.code))}`).join(" · ")}</div>
+      <div class="by pdfl"><span>PDF:</span>${p.languages.map((l,i,a)=>`<span class="lg">${FLAGS[l.code]||""} ${esc(langName(l.code))}${i<a.length-1?" ·":""}</span>`).join("")}</div>
       <div class="row"><span class="badge">${tSkill(p.skill)}</span></div>
       <div class="row"><span class="price">${fmt(p.price)}</span><span class="by">${t("hook_card",{m:p.hookLabelShort})} · ${p.sizeShort}</span></div>
       ${p.sameAs.length?`<div class="also">${t("same_card",{t:esc(loc(DATA.pages.find(x=>x.slug===p.sameAs[0].slug)||p.sameAs[0]).title)})}</div>`:""}
