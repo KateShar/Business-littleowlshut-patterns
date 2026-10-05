@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thank you · LittleOwlsHut Patterns</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--ink:#2b2420;--ground:#fbf7f1;--accent:#c8643b}
+  body{margin:0;background:var(--ground);color:var(--ink);font:17px/1.6 Georgia,serif;display:grid;place-items:center;min-height:100vh;padding:16px;box-sizing:border-box}
+  main{max-width:560px;text-align:center}
+  h1{font-size:2rem;margin:.2em 0}
+  a.cta{display:inline-block;margin-top:1.2em;background:var(--ink);color:var(--ground);padding:.8em 1.4em;border-radius:999px;text-decoration:none;font-family:system-ui,sans-serif;font-weight:700}
+</style>
+</head>
+<body>
+<main>
+  <p>🦉</p>
+  <h1 id="ty_title">Thank you for your order!</h1>
+  <p id="ty_p">Your pattern download link is on its way by email, and you can also download it from the order confirmation page.
+     If it hasn't arrived within a few minutes, please check your spam folder, or email
+     <a href="mailto:info@littleowlshut.com">info@littleowlshut.com</a>.</p>
+  <p><span id="ty_sign">Happy crocheting!</span><br>Kate, LittleOwlsHut</p>
+  <a class="cta" href="./" id="ty_back">Back to the patterns</a>
+</main>
+<script>
+try{localStorage.removeItem("hubBasket")}catch(e){}
+try{ const TY={"EN": {"ty_title": "Thank you for your order!", "ty_p": "Your pattern download link is on its way by email, and you can also download it from the order confirmation page. If it hasn't arrived within a few minutes, please check your spam folder, or email info@littleowlshut.com.", "ty_sign": "Happy crocheting!", "ty_back": "Back to the patterns"}, "DA": {"ty_title": "Tak for din bestilling!", "ty_p": "Dit downloadlink til mønsteret er på vej på e-mail, og du kan også downloade det fra ordrebekræftelsessiden. Hvis det ikke er kommet inden for et par minutter, så tjek din spam-mappe, eller skriv til info@littleowlshut.com.", "ty_sign": "God fornøjelse med hæklingen!", "ty_back": "Tilbage til mønstrene"}, "DE": {"ty_title": "Vielen Dank für deine Bestellung!", "ty_p": "Der Download-Link für deine Anleitung ist per E-Mail unterwegs, und du kannst sie auch auf der Bestellbestätigungsseite herunterladen. Falls nach ein paar Minuten nichts angekommen ist, schau bitte in deinem Spam-Ordner nach oder schreib an info@littleowlshut.com.", "ty_sign": "Viel Freude beim Häkeln!", "ty_back": "Zurück zu den Anleitungen"}, "FR": {"ty_title": "Merci pour ta commande !", "ty_p": "Le lien de téléchargement de ton patron arrive par e-mail, et tu peux aussi le télécharger depuis la page de confirmation de commande. S’il n’est pas arrivé d’ici quelques minutes, vérifie ton dossier spam, ou écris à info@littleowlshut.com.", "ty_sign": "Bon crochet !", "ty_back": "Retour aux patrons"}, "IT": {"ty_title": "Grazie per il tuo ordine!", "ty_p": "Il link per scaricare lo schema ti arriverà via email e puoi scaricarlo anche dalla pagina di conferma dell'ordine. Se non arriva entro qualche minuto, controlla la cartella spam oppure scrivi a info@littleowlshut.com.", "ty_sign": "Buon uncinetto!", "ty_back": "Torna agli schemi"}, "NL": {"ty_title": "Bedankt voor je bestelling!", "ty_p": "De downloadlink van je patroon komt eraan per e-mail, en je kunt het ook downloaden vanaf de pagina met de orderbevestiging. Nog niets ontvangen na een paar minuten? Kijk dan even in je spammap, of mail naar info@littleowlshut.com.", "ty_sign": "Veel haakplezier!", "ty_back": "Terug naar de patronen"}, "PL": {"ty_title": "Dziękujemy za zamówienie!", "ty_p": "Link do pobrania wzoru jest już w drodze na twój e-mail; możesz też pobrać wzór ze strony potwierdzenia zamówienia. Jeśli nie dotrze w ciągu kilku minut, sprawdź folder ze spamem albo napisz na info@littleowlshut.com.", "ty_sign": "Miłego dziergania!", "ty_back": "Wróć do wzorów"}}, ui=(JSON.parse(localStorage.getItem("hubPrefs"))||{}).ui, d=TY[ui];
+  if(d){ document.documentElement.lang=ui.toLowerCase(); for(const [k,v] of Object.entries(d)){ const el=document.getElementById(k); if(el) el.textContent=v; } } }catch(e){}
+</script>
+</body>
+</html>
