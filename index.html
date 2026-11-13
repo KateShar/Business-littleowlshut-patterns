@@ -259,7 +259,6 @@ section{margin-block:clamp(48px,7vw,88px)}
       <button class="basket" id="basketBtn" type="button"><span data-t="basket">Basket</span><b id="count">0</b></button>
     </div>
   </header>
-  <div id="autoBar"></div>
   <main id="app"></main>
 </div>
 <div class="mbar" aria-label="Quick buy"><div><b id="mPrice"></b><small id="mLang"></small></div><button class="cta" type="button" id="mBuy">Add to basket</button></div>
@@ -268,8 +267,7 @@ section{margin-block:clamp(48px,7vw,88px)}
   <form method="dialog" id="setForm">
     <header><h2 id="setTitle"></h2><button class="x" value="cancel" aria-label="Close">×</button></header>
     <div class="body">
-      <div><h3 id="sLangH"></h3><div class="opts" id="sLangs"></div>
-        <div class="auto"><label><input type="radio" name="ui" value="AUTO" id="uiAuto"> <span id="sOther"></span></label><select id="autoLang" aria-label="Automatic translation language"></select></div></div>
+      <div><h3 id="sLangH"></h3><div class="opts" id="sLangs"></div></div>
       <div><h3 id="sCurH"></h3><select id="sCur" style="width:100%;border-radius:10px;padding:.6rem .8rem"></select></div>
       <div class="info"><b>i</b><span id="sInfo"></span></div>
       <div><h3 id="sPlH"></h3><div class="opts" id="sPl"></div>
@@ -465,6 +463,7 @@ Object.assign(T.PL, {"terms_en": "Napisany w terminologii amerykańskiej (US), z
 
 const CUR_NAMES = {GBP:"£ British pound (GBP)", EUR:"€ Euro (EUR)", USD:"$ US dollar (USD)", AUD:"A$ Australian dollar (AUD)", CAD:"C$ Canadian dollar (CAD)"};
 let PREFS = (()=>{ try{ return JSON.parse(localStorage.getItem("hubPrefs")) }catch(e){ return null } })() || {ui:"EN", cur:"GBP", plangs:["EN"], auto:""};
+if(PREFS.ui==="AUTO"){ PREFS.ui="EN"; PREFS.auto=""; }   // the automatic-translation option was removed (13 Nov 2026)
 const savePrefs = () => { try{ localStorage.setItem("hubPrefs", JSON.stringify(PREFS)) }catch(e){} };
 const t = (k, v={}) => { let s = (T[PREFS.ui]||T.EN)[k] ?? T.EN[k] ?? k; for(const [a,b] of Object.entries(v)) s = s.replaceAll("{"+a+"}", b); return s; };
 const tSkill = s => (T[PREFS.ui]||T.EN).skills[s] || s;
@@ -758,18 +757,13 @@ function applyChrome(){
   const uiName = PREFS.ui==="AUTO" ? AUTO_LANGS[PREFS.auto] : UI_LANGS[PREFS.ui];
   $("#setSum").innerHTML = `${esc(uiName)} <span class="sep">|</span> ${esc(CUR_NAMES[PREFS.cur].split(" (")[0].split(" ")[0])} ${PREFS.cur} <span class="sep">|</span> ${PREFS.plangs.length? PREFS.plangs.map(c=>FLAGS[c]||c).join(""): esc(t("any_lang"))}`;
   $("#setSum").querySelectorAll(".flag").forEach(f=>{f.style.display="inline-block"; f.style.verticalAlign="-2px"; f.style.marginRight="2px"});
-  $("#autoBar").innerHTML = PREFS.ui==="AUTO" ? `<div class="autobar">Read this page in ${esc(AUTO_LANGS[PREFS.auto])}: <a href="https://translate.google.com/translate?sl=en&tl=${PREFS.auto}&u=${encodeURIComponent(location.href)}" target="_blank" rel="noopener">open Google's automatic translation</a>. <button type="button" id="autoOff">Back to English</button></div>` : "";
-  const off=$("#autoOff"); if(off) off.onclick=()=>{ PREFS.ui="EN"; savePrefs(); applyChrome(); route(); };
 }
 function openSettings(){
   const d=$("#settings");
-  $("#setTitle").textContent=t("settings"); $("#sLangH").textContent=t("site_lang"); $("#sOther").textContent=t("other_lang");
+  $("#setTitle").textContent=t("settings"); $("#sLangH").textContent=t("site_lang");
   $("#sCurH").textContent=t("currency"); $("#sInfo").textContent=t("plang_info"); $("#sPlH").textContent=t("plang");
   $("#plAll").textContent=t("select_all"); $("#plNone").textContent=t("deselect"); $("#sClose").textContent=t("close"); $("#sApply").textContent=t("apply");
   $("#sLangs").innerHTML = Object.entries(UI_LANGS).map(([c,n])=>`<label><input type="radio" name="ui" value="${c}" ${PREFS.ui===c?"checked":""}> ${n}</label>`).join("");
-  $("#uiAuto").checked = PREFS.ui==="AUTO";
-  $("#autoLang").innerHTML = `<option value="">${esc(t("other_pick"))}</option>` + Object.entries(AUTO_LANGS).map(([c,n])=>`<option value="${c}" ${PREFS.auto===c?"selected":""}>${n}</option>`).join("");
-  $("#autoLang").onchange = () => { if($("#autoLang").value) $("#uiAuto").checked = true; };
   $("#sCur").innerHTML = Object.entries(CUR_NAMES).map(([c,n])=>`<option value="${c}" ${PREFS.cur===c?"selected":""}>${n}</option>`).join("");
   $("#sPl").innerHTML = Object.entries(LANG_NAMES).map(([c,n])=>`<label><input type="checkbox" value="${c}" ${PREFS.plangs.includes(c)?"checked":""}> ${n}</label>`).join("");
   $("#plAll").onclick = () => $("#sPl").querySelectorAll("input").forEach(i=>i.checked=true);
@@ -780,8 +774,7 @@ function openSettings(){
 }
 $("#sApply").onclick = () => {
   const ui = document.querySelector('#setForm input[name="ui"]:checked')?.value || "EN";
-  if(ui==="AUTO" && !$("#autoLang").value){ $("#autoLang").focus(); return; }
-  PREFS = { ui, auto: ui==="AUTO" ? $("#autoLang").value : "", cur: $("#sCur").value,
+  PREFS = { ui, auto: "", cur: $("#sCur").value,
             plangs: [...$("#sPl").querySelectorAll("input:checked")].map(i=>i.value) };
   savePrefs(); $("#settings").close(); applyChrome(); route();
 };
