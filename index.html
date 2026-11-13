@@ -302,10 +302,9 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 const store = { get(k){ try{return localStorage.getItem(k)}catch(e){return null} }, set(k,v){ try{localStorage.setItem(k,v)}catch(e){} } };
 // Interface translations for the hub (site chrome only; pattern texts are translated separately).
 const UI_LANGS = { EN:"English", DE:"Deutsch", NL:"Nederlands", DA:"Dansk", IT:"Italiano", PL:"Polski", FR:"Français" };
-const AUTO_LANGS = { ja:"日本語", pt:"Português", es:"Español", sv:"Svenska", no:"Norsk", fi:"Suomi", ru:"Русский", cs:"Čeština", tr:"Türkçe", hu:"Magyar", ro:"Română", el:"Ελληνικά", he:"עברית", ko:"한국어", "zh-CN":"中文" };
 const T = {
 EN:{nav_all:"All patterns",nav_dolls:"Dolls",nav_halloween:"Halloween",nav_christmas:"Christmas",basket:"Basket",settings:"Settings",
- site_lang:"Site language",other_lang:"Other language (automatic translation)",other_pick:"Choose a language…",currency:"Currency",
+ site_lang:"Site language",currency:"Currency",
  plang:"Pattern languages",plang_info:"Our patterns come in several languages. Tick the languages you can read: we'll show you those patterns and choose that edition when you buy.",
  select_all:"Select all",deselect:"Deselect",close:"Close",apply:"Apply",any_lang:"Any language",
  intro_eyebrow:"The LittleOwlsHut pattern library",intro_h1:"Find your next <em>crochet</em> project",
@@ -326,7 +325,7 @@ EN:{nav_all:"All patterns",nav_dolls:"Dolls",nav_halloween:"Halloween",nav_chris
  skills:{Beginner:"Beginner",Easy:"Easy",Intermediate:"Intermediate",Experienced:"Experienced",Advanced:"Advanced"},
  cats:{Dolls:"Dolls",Halloween:"Halloween",Christmas:"Christmas",Bookmarks:"Bookmarks",Animals:"Animals"}},
 DE:{nav_all:"Alle Anleitungen",nav_dolls:"Puppen",nav_halloween:"Halloween",nav_christmas:"Weihnachten",basket:"Warenkorb",settings:"Einstellungen",
- site_lang:"Sprache der Website",other_lang:"Andere Sprache (automatische Übersetzung)",other_pick:"Sprache wählen…",currency:"Währung",
+ site_lang:"Sprache der Website",currency:"Währung",
  plang:"Sprachen der Anleitungen",plang_info:"Unsere Anleitungen gibt es in mehreren Sprachen. Wähle die Sprachen, die du lesen kannst: Wir zeigen dir diese Anleitungen und wählen beim Kauf die passende Ausgabe.",
  select_all:"Alle auswählen",deselect:"Keine",close:"Schließen",apply:"Übernehmen",any_lang:"Alle Sprachen",
  intro_eyebrow:"Die Anleitungsbibliothek von LittleOwlsHut",intro_h1:"Finde dein nächstes <em>Häkel</em>projekt",
@@ -347,7 +346,7 @@ DE:{nav_all:"Alle Anleitungen",nav_dolls:"Puppen",nav_halloween:"Halloween",nav_
  skills:{Beginner:"Anfänger",Easy:"Einfach",Intermediate:"Mittel",Experienced:"Erfahren",Advanced:"Fortgeschritten"},
  cats:{Dolls:"Puppen",Halloween:"Halloween",Christmas:"Weihnachten",Bookmarks:"Lesezeichen",Animals:"Tiere"}},
 NL:{nav_all:"Alle patronen",nav_dolls:"Poppen",nav_halloween:"Halloween",nav_christmas:"Kerst",basket:"Winkelmand",settings:"Instellingen",
- site_lang:"Taal van de website",other_lang:"Andere taal (automatische vertaling)",other_pick:"Kies een taal…",currency:"Valuta",
+ site_lang:"Taal van de website",currency:"Valuta",
  plang:"Taal van de patronen",plang_info:"Onze patronen zijn er in meerdere talen. Vink de talen aan die je kunt lezen: we tonen je die patronen en kiezen die editie als je koopt.",
  select_all:"Alles selecteren",deselect:"Niets",close:"Sluiten",apply:"Toepassen",any_lang:"Alle talen",
  intro_eyebrow:"De patronenbibliotheek van LittleOwlsHut",intro_h1:"Vind je volgende <em>haak</em>project",
@@ -368,7 +367,7 @@ NL:{nav_all:"Alle patronen",nav_dolls:"Poppen",nav_halloween:"Halloween",nav_chr
  skills:{Beginner:"Beginner",Easy:"Makkelijk",Intermediate:"Gemiddeld",Experienced:"Ervaren",Advanced:"Gevorderd"},
  cats:{Dolls:"Poppen",Halloween:"Halloween",Christmas:"Kerst",Bookmarks:"Boekenleggers",Animals:"Dieren"}},
 DA:{nav_all:"Alle opskrifter",nav_dolls:"Dukker",nav_halloween:"Halloween",nav_christmas:"Jul",basket:"Kurv",settings:"Indstillinger",
- site_lang:"Sprog på hjemmesiden",other_lang:"Andet sprog (automatisk oversættelse)",other_pick:"Vælg et sprog…",currency:"Valuta",
+ site_lang:"Sprog på hjemmesiden",currency:"Valuta",
  plang:"Opskrifternes sprog",plang_info:"Vores opskrifter findes på flere sprog. Sæt flueben ved de sprog, du kan læse: Vi viser dig de opskrifter og vælger den udgave, når du køber.",
  select_all:"Vælg alle",deselect:"Fravælg",close:"Luk",apply:"Anvend",any_lang:"Alle sprog",
  intro_eyebrow:"LittleOwlsHuts opskriftsbibliotek",intro_h1:"Find dit næste <em>hækle</em>projekt",
@@ -389,7 +388,7 @@ DA:{nav_all:"Alle opskrifter",nav_dolls:"Dukker",nav_halloween:"Halloween",nav_c
  skills:{Beginner:"Begynder",Easy:"Let",Intermediate:"Øvet",Experienced:"Erfaren",Advanced:"Avanceret"},
  cats:{Dolls:"Dukker",Halloween:"Halloween",Christmas:"Jul",Bookmarks:"Bogmærker",Animals:"Dyr"}},
 IT:{nav_all:"Tutti gli schemi",nav_dolls:"Bambole",nav_halloween:"Halloween",nav_christmas:"Natale",basket:"Carrello",settings:"Impostazioni",
- site_lang:"Lingua del sito",other_lang:"Altra lingua (traduzione automatica)",other_pick:"Scegli una lingua…",currency:"Valuta",
+ site_lang:"Lingua del sito",currency:"Valuta",
  plang:"Lingue degli schemi",plang_info:"I nostri schemi sono disponibili in diverse lingue. Seleziona le lingue che sai leggere: ti mostreremo quegli schemi e sceglieremo quell'edizione all'acquisto.",
  select_all:"Seleziona tutto",deselect:"Deseleziona",close:"Chiudi",apply:"Applica",any_lang:"Tutte le lingue",
  intro_eyebrow:"La biblioteca di schemi LittleOwlsHut",intro_h1:"Trova il tuo prossimo progetto <em>all'uncinetto</em>",
@@ -410,7 +409,7 @@ IT:{nav_all:"Tutti gli schemi",nav_dolls:"Bambole",nav_halloween:"Halloween",nav
  skills:{Beginner:"Principiante",Easy:"Facile",Intermediate:"Intermedio",Experienced:"Esperto",Advanced:"Avanzato"},
  cats:{Dolls:"Bambole",Halloween:"Halloween",Christmas:"Natale",Bookmarks:"Segnalibri",Animals:"Animali"}},
 PL:{nav_all:"Wszystkie wzory",nav_dolls:"Lalki",nav_halloween:"Halloween",nav_christmas:"Boże Narodzenie",basket:"Koszyk",settings:"Ustawienia",
- site_lang:"Język strony",other_lang:"Inny język (tłumaczenie automatyczne)",other_pick:"Wybierz język…",currency:"Waluta",
+ site_lang:"Język strony",currency:"Waluta",
  plang:"Języki wzorów",plang_info:"Nasze wzory są dostępne w wielu językach. Zaznacz języki, które znasz: pokażemy Ci te wzory i przy zakupie wybierzemy to wydanie.",
  select_all:"Zaznacz wszystko",deselect:"Odznacz",close:"Zamknij",apply:"Zastosuj",any_lang:"Wszystkie języki",
  intro_eyebrow:"Biblioteka wzorów LittleOwlsHut",intro_h1:"Znajdź swój następny projekt <em>na szydełku</em>",
@@ -431,7 +430,7 @@ PL:{nav_all:"Wszystkie wzory",nav_dolls:"Lalki",nav_halloween:"Halloween",nav_ch
  skills:{Beginner:"Początkujący",Easy:"Łatwy",Intermediate:"Średni",Experienced:"Doświadczony",Advanced:"Zaawansowany"},
  cats:{Dolls:"Lalki",Halloween:"Halloween",Christmas:"Boże Narodzenie",Bookmarks:"Zakładki",Animals:"Zwierzęta"}},
 FR:{nav_all:"Tous les patrons",nav_dolls:"Poupées",nav_halloween:"Halloween",nav_christmas:"Noël",basket:"Panier",settings:"Paramètres",
- site_lang:"Langue du site",other_lang:"Autre langue (traduction automatique)",other_pick:"Choisir une langue…",currency:"Devise",
+ site_lang:"Langue du site",currency:"Devise",
  plang:"Langues des patrons",plang_info:"Nos patrons existent en plusieurs langues. Cochez les langues que vous lisez : nous afficherons ces patrons et choisirons cette édition à l'achat.",
  select_all:"Tout sélectionner",deselect:"Tout désélectionner",close:"Fermer",apply:"Appliquer",any_lang:"Toutes les langues",
  intro_eyebrow:"La bibliothèque de patrons LittleOwlsHut",intro_h1:"Trouvez votre prochain projet <em>au crochet</em>",
@@ -472,7 +471,7 @@ const tCat = c => (T[PREFS.ui]||T.EN).cats[c] || c;
 const loc = p => Object.assign({}, p, (p.tr||{})[PREFS.ui] || {});
 const edition = (p, code) => p.languages.find(l=>l.code===code);
 const edImgs = (p, code) => (edition(p, code)||{}).images || p.images;
-const langName = c => { let n; try{ n = new Intl.DisplayNames([PREFS.ui==="AUTO"?"en":PREFS.ui.toLowerCase()], {type:"language"}).of(c.toLowerCase()); }catch(e){} n = n && n.toLowerCase()!==c.toLowerCase() ? n : (LANG_NAMES[c]||c); return n.charAt(0).toUpperCase() + n.slice(1); };
+const langName = c => { let n; try{ n = new Intl.DisplayNames([PREFS.ui.toLowerCase()], {type:"language"}).of(c.toLowerCase()); }catch(e){} n = n && n.toLowerCase()!==c.toLowerCase() ? n : (LANG_NAMES[c]||c); return n.charAt(0).toUpperCase() + n.slice(1); };
 const bio = d => ((d.tr||{})[PREFS.ui]||{}).bio || d.bio;
 const fmt = gbp => { const [r,s] = RATES[PREFS.cur]; return s + (gbp*r).toFixed(2); };
 let timer;
@@ -648,7 +647,7 @@ function renderPattern(base){
   const ytb = $("#ytPlay"); if(ytb) ytb.onclick = () => {
     const f = document.createElement("iframe"); f.className = "ytf"; f.title = ytb.getAttribute("aria-label");
     f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true;
-    f.src = `https://www.youtube-nocookie.com/embed/${ytb.dataset.yt}?autoplay=1&rel=0&playsinline=1&hl=${PREFS.ui==="AUTO"?"en":PREFS.ui.toLowerCase()}`;
+    f.src = `https://www.youtube-nocookie.com/embed/${ytb.dataset.yt}?autoplay=1&rel=0&playsinline=1&hl=${PREFS.ui.toLowerCase()}`;
     ytb.replaceWith(f); };
   const ma=$("#makersAll"); if(ma) ma.onclick=()=>{ document.querySelectorAll("#makersGrid .more").forEach(f=>f.hidden=false); ma.remove(); };
   $("#toLangs").onclick = e => { e.preventDefault(); $("#langs").scrollIntoView({behavior:"smooth",block:"center"}); };
@@ -752,9 +751,9 @@ function route(){
   p ? renderPattern(p) : renderGallery();
 }
 function applyChrome(){
-  document.documentElement.lang = PREFS.ui==="AUTO" ? "en" : PREFS.ui.toLowerCase();
+  document.documentElement.lang = PREFS.ui.toLowerCase();
   document.querySelectorAll("[data-t]").forEach(el=>el.textContent=t(el.dataset.t));
-  const uiName = PREFS.ui==="AUTO" ? AUTO_LANGS[PREFS.auto] : UI_LANGS[PREFS.ui];
+  const uiName = UI_LANGS[PREFS.ui];
   $("#setSum").innerHTML = `${esc(uiName)} <span class="sep">|</span> ${esc(CUR_NAMES[PREFS.cur].split(" (")[0].split(" ")[0])} ${PREFS.cur} <span class="sep">|</span> ${PREFS.plangs.length? PREFS.plangs.map(c=>FLAGS[c]||c).join(""): esc(t("any_lang"))}`;
   $("#setSum").querySelectorAll(".flag").forEach(f=>{f.style.display="inline-block"; f.style.verticalAlign="-2px"; f.style.marginRight="2px"});
 }
