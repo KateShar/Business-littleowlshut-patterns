@@ -107,6 +107,8 @@ dialog.settings::backdrop{background:rgba(30,22,17,.45)}
 .card .pdfl img,.card .pdfl svg{width:18px; height:auto; vertical-align:-3px}
 .card .also{font-size:.78rem; color:var(--muted); border-top:1px dashed var(--line); padding-top:6px}
 .empty{padding:40px 0; text-align:center; color:var(--muted)}
+.langnotice{display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; background:var(--sage-soft); border-radius:12px; padding:12px 16px; font-size:.9rem; margin:0 0 18px}
+.langnotice button{border:0; background:none; color:inherit; font-weight:800; text-decoration:underline; cursor:pointer; padding:0}
 .ghost{break-inside:avoid; margin-bottom:18px; border:1.5px dashed var(--line); border-radius:14px; padding:22px; color:var(--muted); font-size:.9rem; text-align:center}
 
 /* ===== pattern page ===== */
@@ -310,7 +312,7 @@ EN:{nav_all:"All patterns",nav_dolls:"Dolls",nav_halloween:"Halloween",nav_chris
  intro_eyebrow:"The LittleOwlsHut pattern library",intro_h1:"Find your next <em>crochet</em> project",
  intro_p:"Dolls, animals, bookmarks and seasonal makes from our designers, in up to 11 languages. Filter by skill, hook size or language to find exactly what you want to make.",
  search_ph:"Search: witch, horse, Christmas…",search:"Search",f_skill:"Skill",f_hook:"Hook",all_designers:"All designers",all_occasions:"All occasions",
- sort_featured:"Featured",sort_asc:"Price: low to high",sort_desc:"Price: high to low",clear:"Clear filters",count:"{n} of {t} patterns",
+ sort_featured:"Featured",sort_asc:"Price: low to high",sort_desc:"Price: high to low",clear:"Clear filters",count:"{n} of {t} patterns", lang_fallback:"None of our patterns are in {l} yet — showing all languages instead.",plang_change:"Change languages",
  more_tile:"About 400 more patterns appear here in the full catalogue.",empty:"No patterns match these filters.",by_name:"by {n}",
  same_card:"Same pattern as “{t}”, different colours",designed_by:"Designed by",pattern_no:"pattern",
  offer_t:"15% off, just for you",offer_s:"Your code is applied automatically at checkout",offer_end:"Offer ended",legend:"Pattern language",soon:"soon",
@@ -331,7 +333,7 @@ DE:{nav_all:"Alle Anleitungen",nav_dolls:"Puppen",nav_halloween:"Halloween",nav_
  intro_eyebrow:"Die Anleitungsbibliothek von LittleOwlsHut",intro_h1:"Finde dein nächstes <em>Häkel</em>projekt",
  intro_p:"Puppen, Tiere, Lesezeichen und saisonale Projekte unserer Designerinnen, in bis zu 11 Sprachen. Filtere nach Schwierigkeit, Nadelstärke oder Sprache und finde genau das, was du häkeln möchtest.",
  search_ph:"Suche: Hexe, Pferd, Weihnachten…",search:"Suchen",f_skill:"Niveau",f_hook:"Nadel",all_designers:"Alle Designerinnen",all_occasions:"Alle Anlässe",
- sort_featured:"Empfohlen",sort_asc:"Preis: aufsteigend",sort_desc:"Preis: absteigend",clear:"Filter zurücksetzen",count:"{n} von {t} Anleitungen",
+ sort_featured:"Empfohlen",sort_asc:"Preis: aufsteigend",sort_desc:"Preis: absteigend",clear:"Filter zurücksetzen",count:"{n} von {t} Anleitungen", lang_fallback:"Noch keine unserer Anleitungen gibt es auf {l} — wir zeigen stattdessen alle Sprachen.",plang_change:"Sprachen ändern",
  more_tile:"Im vollständigen Katalog erscheinen hier rund 400 weitere Anleitungen.",empty:"Keine Anleitung passt zu diesen Filtern.",by_name:"von {n}",
  same_card:"Gleiche Anleitung wie „{t}“, andere Farben",designed_by:"Design von",pattern_no:"Anleitung",
  offer_t:"15 % Rabatt, nur für dich",offer_s:"Dein Code wird an der Kasse automatisch abgezogen",offer_end:"Angebot beendet",legend:"Sprache der Anleitung",soon:"bald",
@@ -352,7 +354,7 @@ NL:{nav_all:"Alle patronen",nav_dolls:"Poppen",nav_halloween:"Halloween",nav_chr
  intro_eyebrow:"De patronenbibliotheek van LittleOwlsHut",intro_h1:"Vind je volgende <em>haak</em>project",
  intro_p:"Poppen, dieren, boekenleggers en seizoensprojecten van onze ontwerpers, in maximaal 11 talen. Filter op niveau, haaknaaldmaat of taal en vind precies wat je wilt maken.",
  search_ph:"Zoek: heks, paard, kerst…",search:"Zoeken",f_skill:"Niveau",f_hook:"Haaknaald",all_designers:"Alle ontwerpers",all_occasions:"Alle gelegenheden",
- sort_featured:"Aanbevolen",sort_asc:"Prijs: laag naar hoog",sort_desc:"Prijs: hoog naar laag",clear:"Filters wissen",count:"{n} van {t} patronen",
+ sort_featured:"Aanbevolen",sort_asc:"Prijs: laag naar hoog",sort_desc:"Prijs: hoog naar laag",clear:"Filters wissen",count:"{n} van {t} patronen", lang_fallback:"Nog geen van onze patronen is in het {l} — we tonen in plaats daarvan alle talen.",plang_change:"Talen wijzigen",
  more_tile:"In de volledige catalogus verschijnen hier nog zo'n 400 patronen.",empty:"Geen patronen gevonden met deze filters.",by_name:"door {n}",
  same_card:"Hetzelfde patroon als ‘{t}’, andere kleuren",designed_by:"Ontworpen door",pattern_no:"patroon",
  offer_t:"15% korting, speciaal voor jou",offer_s:"Je code wordt automatisch toegepast bij het afrekenen",offer_end:"Aanbieding verlopen",legend:"Taal van het patroon",soon:"binnenkort",
@@ -373,7 +375,7 @@ DA:{nav_all:"Alle opskrifter",nav_dolls:"Dukker",nav_halloween:"Halloween",nav_c
  intro_eyebrow:"LittleOwlsHuts opskriftsbibliotek",intro_h1:"Find dit næste <em>hækle</em>projekt",
  intro_p:"Dukker, dyr, bogmærker og sæsonprojekter fra vores designere, på op til 11 sprog. Filtrér efter niveau, nålestørrelse eller sprog, og find præcis det, du vil lave.",
  search_ph:"Søg: heks, hest, jul…",search:"Søg",f_skill:"Niveau",f_hook:"Nål",all_designers:"Alle designere",all_occasions:"Alle anledninger",
- sort_featured:"Udvalgte",sort_asc:"Pris: lav til høj",sort_desc:"Pris: høj til lav",clear:"Nulstil filtre",count:"{n} af {t} opskrifter",
+ sort_featured:"Udvalgte",sort_asc:"Pris: lav til høj",sort_desc:"Pris: høj til lav",clear:"Nulstil filtre",count:"{n} af {t} opskrifter", lang_fallback:"Ingen af vores opskrifter findes på {l} endnu — vi viser alle sprog i stedet.",plang_change:"Skift sprog",
  more_tile:"I det fulde katalog vises her omkring 400 opskrifter mere.",empty:"Ingen opskrifter matcher disse filtre.",by_name:"af {n}",
  same_card:"Samme opskrift som “{t}”, andre farver",designed_by:"Designet af",pattern_no:"opskrift",
  offer_t:"15 % rabat, kun til dig",offer_s:"Din kode trækkes automatisk fra ved betaling",offer_end:"Tilbuddet er udløbet",legend:"Opskriftens sprog",soon:"snart",
@@ -394,7 +396,7 @@ IT:{nav_all:"Tutti gli schemi",nav_dolls:"Bambole",nav_halloween:"Halloween",nav
  intro_eyebrow:"La biblioteca di schemi LittleOwlsHut",intro_h1:"Trova il tuo prossimo progetto <em>all'uncinetto</em>",
  intro_p:"Bambole, animali, segnalibri e progetti stagionali delle nostre designer, in fino a 11 lingue. Filtra per livello, misura dell'uncinetto o lingua e trova esattamente ciò che vuoi realizzare.",
  search_ph:"Cerca: strega, cavallo, Natale…",search:"Cerca",f_skill:"Livello",f_hook:"Uncinetto",all_designers:"Tutte le designer",all_occasions:"Tutte le occasioni",
- sort_featured:"In evidenza",sort_asc:"Prezzo: crescente",sort_desc:"Prezzo: decrescente",clear:"Azzera filtri",count:"{n} di {t} schemi",
+ sort_featured:"In evidenza",sort_asc:"Prezzo: crescente",sort_desc:"Prezzo: decrescente",clear:"Azzera filtri",count:"{n} di {t} schemi", lang_fallback:"Nessuno dei nostri schemi è ancora disponibile in {l} — mostriamo tutte le lingue.",plang_change:"Cambia lingue",
  more_tile:"Nel catalogo completo qui compaiono circa altri 400 schemi.",empty:"Nessuno schema corrisponde a questi filtri.",by_name:"di {n}",
  same_card:"Stesso schema di “{t}”, colori diversi",designed_by:"Disegnato da",pattern_no:"schema",
  offer_t:"15% di sconto, solo per te",offer_s:"Il codice viene applicato automaticamente alla cassa",offer_end:"Offerta scaduta",legend:"Lingua dello schema",soon:"presto",
@@ -415,7 +417,7 @@ PL:{nav_all:"Wszystkie wzory",nav_dolls:"Lalki",nav_halloween:"Halloween",nav_ch
  intro_eyebrow:"Biblioteka wzorów LittleOwlsHut",intro_h1:"Znajdź swój następny projekt <em>na szydełku</em>",
  intro_p:"Lalki, zwierzęta, zakładki i projekty sezonowe naszych projektantek, w maksymalnie 11 językach. Filtruj według poziomu, rozmiaru szydełka lub języka i znajdź dokładnie to, co chcesz zrobić.",
  search_ph:"Szukaj: czarownica, koń, święta…",search:"Szukaj",f_skill:"Poziom",f_hook:"Szydełko",all_designers:"Wszystkie projektantki",all_occasions:"Wszystkie okazje",
- sort_featured:"Polecane",sort_asc:"Cena: rosnąco",sort_desc:"Cena: malejąco",clear:"Wyczyść filtry",count:"{n} z {t} wzorów",
+ sort_featured:"Polecane",sort_asc:"Cena: rosnąco",sort_desc:"Cena: malejąco",clear:"Wyczyść filtry",count:"{n} z {t} wzorów", lang_fallback:"Żaden z naszych wzorów nie jest jeszcze dostępny w języku {l} — pokazujemy wszystkie języki.",plang_change:"Zmień języki",
  more_tile:"W pełnym katalogu pojawi się tu około 400 kolejnych wzorów.",empty:"Żaden wzór nie pasuje do tych filtrów.",by_name:"autorka: {n}",
  same_card:"Ten sam wzór co „{t}”, inne kolory",designed_by:"Projekt:",pattern_no:"wzór",
  offer_t:"15% zniżki, tylko dla Ciebie",offer_s:"Kod zostanie automatycznie naliczony przy kasie",offer_end:"Oferta wygasła",legend:"Język wzoru",soon:"wkrótce",
@@ -436,7 +438,7 @@ FR:{nav_all:"Tous les patrons",nav_dolls:"Poupées",nav_halloween:"Halloween",na
  intro_eyebrow:"La bibliothèque de patrons LittleOwlsHut",intro_h1:"Trouvez votre prochain projet <em>au crochet</em>",
  intro_p:"Poupées, animaux, marque-pages et créations de saison de nos créatrices, dans jusqu'à 11 langues. Filtrez par niveau, taille de crochet ou langue pour trouver exactement ce que vous voulez faire.",
  search_ph:"Rechercher : sorcière, cheval, Noël…",search:"Rechercher",f_skill:"Niveau",f_hook:"Crochet",all_designers:"Toutes les créatrices",all_occasions:"Toutes les occasions",
- sort_featured:"En vedette",sort_asc:"Prix croissant",sort_desc:"Prix décroissant",clear:"Effacer les filtres",count:"{n} sur {t} patrons",
+ sort_featured:"En vedette",sort_asc:"Prix croissant",sort_desc:"Prix décroissant",clear:"Effacer les filtres",count:"{n} sur {t} patrons", lang_fallback:"Aucun de nos patrons n’est encore disponible en {l} — nous affichons toutes les langues.",plang_change:"Changer de langue",
  more_tile:"Dans le catalogue complet, environ 400 autres patrons apparaissent ici.",empty:"Aucun patron ne correspond à ces filtres.",by_name:"par {n}",
  same_card:"Même patron que « {t} », autres couleurs",designed_by:"Créé par",pattern_no:"patron",
  offer_t:"-15 %, rien que pour vous",offer_s:"Votre code est appliqué automatiquement au paiement",offer_end:"Offre terminée",legend:"Langue du patron",soon:"bientôt",
@@ -498,7 +500,8 @@ function renderGallery(){
   const langs = uniq(all.flatMap(p=>p.languages.map(l=>l.code)));
   const cats = uniq(all.flatMap(p=>p.categories)).sort();
   let list = all.filter(p=>matches(p,f));
-  if(!list.length && PREFS.plangs.length) list = all.filter(p=>matches(p,f,true));  // nothing in the ticked languages yet: show everything rather than an empty page
+  const langFellBack = !list.length && PREFS.plangs.length>0;  // nothing in the ticked languages yet: show everything, but say so (never claim a false match)
+  if(langFellBack) list = all.filter(p=>matches(p,f,true));
   if(f.sort==="price-asc") list.sort((a,b)=>a.price-b.price);
   if(f.sort==="price-desc") list.sort((a,b)=>b.price-a.price);
   const opt = (v,l,cur) => `<option value="${esc(v)}" ${v===cur?"selected":""}>${esc(l)}</option>`;
@@ -518,9 +521,11 @@ function renderGallery(){
     ${Object.keys(f).some(k=>f[k]&&k!=="sort")?`<button type="button" class="clear" id="clr">${t("clear")}</button>`:""}
     <span class="count">${t("count",{n:list.length,t:all.length})}</span>
   </div>
+  ${langFellBack?`<p class="langnotice">${t("lang_fallback",{l:PREFS.plangs.map(langName).join(", ")})} <button type="button" id="langNoticeChange">${t("plang_change")}</button></p>`:""}
   <div class="grid">${list.map(card).join("") || ""}
   </div>
   ${list.length?"":`<p class="empty">${t("empty")} <button type="button" class="clear" id="clr2">${t("clear")}</button></p>`}`;
+  if(langFellBack){ const b=$("#langNoticeChange"); if(b) b.onclick=openSettings; }
   $("#app").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{ const p=params(); p[b.dataset.k] = p[b.dataset.k]===b.dataset.v ? "" : b.dataset.v; setParams(p); });
   [["#fd","designer"],["#fc","cat"],["#fs","sort"]].forEach(([id,k])=>$(id).onchange=e=>{ const p=params(); p[k]=e.target.value; setParams(p); });
   $("#sf").onsubmit = e => { e.preventDefault(); const p=params(); p.q=$("#q").value.trim(); setParams(p); };
