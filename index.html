@@ -122,6 +122,9 @@ dialog.settings::backdrop{background:rgba(30,22,17,.45)}
 .arrow{position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%; border:0; background:rgba(255,253,249,.92); color:#3E2A1E; font-size:1.4rem; line-height:1; display:grid; place-items:center; cursor:pointer; box-shadow:0 4px 14px rgba(30,22,17,.25); z-index:2}
 .arrow:hover{background:#fff}
 .arrow.prev{left:12px} .arrow.next{right:12px}
+.pinbtn{position:absolute; left:12px; top:12px; z-index:2; display:flex; align-items:center; gap:6px; border:0; background:rgba(30,22,17,.6); color:#fff; font:700 .8rem var(--body); padding:.45rem .8rem; border-radius:999px; cursor:pointer}
+.pinbtn:hover{background:rgba(30,22,17,.8)}
+.pinbtn svg{width:14px; height:14px; flex:none}
 .pos{position:absolute; right:12px; bottom:12px; background:rgba(30,22,17,.6); color:#fff; font:700 .78rem/1 var(--body); padding:.35rem .6rem; border-radius:999px; font-variant-numeric:tabular-nums; z-index:2}
 .thumbs{display:grid; grid-auto-flow:column; grid-auto-columns:calc((100% - 7*8px)/8); gap:8px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:thin; padding-bottom:4px}
 .thumbs button{scroll-snap-align:start}
@@ -159,6 +162,18 @@ legend{font-weight:800; font-size:.85rem; margin-bottom:8px}
 .cta.alt{background:var(--paper); color:var(--ink); border:1.5px solid var(--ink); box-shadow:none}
 .trust{display:flex; flex-wrap:wrap; gap:4px 14px; font-size:.85rem; color:var(--muted); margin:0}
 .trust span::before{content:"✓ "; color:var(--sage); font-weight:800}
+.getbox{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.getbox h3{font:800 .8rem/1 var(--body); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:0 0 10px}
+.getbox ul{list-style:none; margin:0; padding:0; display:grid; gap:8px; font-size:.92rem}
+.getbox li{padding-left:22px; position:relative}
+.getbox li::before{content:"✓"; position:absolute; left:0; top:0; color:var(--sage); font-weight:800}
+.samplebtn{display:inline-flex; align-items:center; gap:8px; font:700 .88rem var(--body); color:var(--ink); text-decoration:underline; text-decoration-color:var(--accent); text-underline-offset:3px; margin-top:4px}
+.sampnote{font-size:.8rem; color:var(--muted); margin:2px 0 0}
+.moredesign{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:20px}
+.moredesign a{text-decoration:none; color:inherit; display:grid; gap:8px}
+.moredesign img{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:10px; background:var(--band)}
+.moredesign span{font-size:.88rem; font-weight:700; line-height:1.3}
+@media (max-width:860px){ .moredesign{grid-template-columns:repeat(2,minmax(0,1fr))} }
 
 .band{background:var(--band); border-radius:14px; position:relative; overflow:hidden}
 .band::before,.band::after{content:""; position:absolute; top:0; bottom:0; width:16px; background:repeating-linear-gradient(0deg,transparent 0 6px,var(--line) 6px 8px)}
@@ -239,7 +254,10 @@ section{margin-block:clamp(48px,7vw,88px)}
   .intro,.hero,.split,.mats,.videos,.pair{grid-template-columns:minmax(0,1fr)}
   .pair > div{padding:0 20px 22px}
   .buy{position:static} .gallery{position:static} .thumbs{grid-auto-columns:64px}
-  .makers{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .makers{display:flex; grid-template-columns:none; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:thin; gap:10px; padding-bottom:6px}
+  .makers figure{flex:0 0 42%; scroll-snap-align:start}
+  .makers figure[hidden]{display:block !important}
+  #makersAll{display:none}
   .mats ul{columns:1}
   .top nav{display:none}
   .count{margin-left:0}
@@ -324,7 +342,8 @@ EN:{nav_all:"All patterns",nav_dolls:"Dolls",nav_halloween:"Halloween",nav_chris
  materials:"Materials",tools:"Tools",reviews_e:"Reviews",reviews_h:"What buyers say",finished_e:"Finished projects",finished_h:"Made by our makers",
  designer_e:"The designer",questions_e:"Questions",before_buy:"Before you buy",choose_lang:"Choose your language",all_by:"See all patterns by {n} →",
  content_note:"",added:"Added: {t} ({l})",empty_basket:"Your basket is empty",charged:"charged as {p}",hook_card:"{m} hook",
- skills:{Beginner:"Beginner",Easy:"Easy",Intermediate:"Intermediate",Experienced:"Experienced",Advanced:"Advanced"},
+get_h:"What's in the box",get_pages:"{n}-page PDF pattern, every step a close-up photo",get_instant:"Instant download — no waiting for the post",get_langs:"This edition: {l}",get_price:"Our best price — cheaper here than on Etsy or Ravelry, in your own currency",pin_save:"Save",pin_desc:"Share this photo",sample_btn:"Download a free sample",sample_note:"A few pages, so you can see the pattern before you buy",more_e:"More to make",more_h:"More by {n}",
+  skills:{Beginner:"Beginner",Easy:"Easy",Intermediate:"Intermediate",Experienced:"Experienced",Advanced:"Advanced"},
  cats:{Dolls:"Dolls",Halloween:"Halloween",Christmas:"Christmas",Bookmarks:"Bookmarks",Animals:"Animals"}},
 DE:{nav_all:"Alle Anleitungen",nav_dolls:"Puppen",nav_halloween:"Halloween",nav_christmas:"Weihnachten",basket:"Warenkorb",settings:"Einstellungen",
  site_lang:"Sprache der Website",currency:"Währung",
@@ -345,7 +364,8 @@ DE:{nav_all:"Alle Anleitungen",nav_dolls:"Puppen",nav_halloween:"Halloween",nav_
  materials:"Material",tools:"Werkzeug",reviews_e:"Bewertungen",reviews_h:"Das sagen Käuferinnen",finished_e:"Fertige Projekte",finished_h:"Von unseren Häkelfans gemacht",
  designer_e:"Die Designerin",questions_e:"Fragen",before_buy:"Vor dem Kauf",choose_lang:"Sprache wählen",all_by:"Alle Anleitungen von {n} →",
  content_note:"",added:"Hinzugefügt: {t} ({l})",empty_basket:"Dein Warenkorb ist leer",charged:"abgerechnet als {p}",hook_card:"Nadel {m}",
- skills:{Beginner:"Anfänger",Easy:"Einfach",Intermediate:"Mittel",Experienced:"Erfahren",Advanced:"Fortgeschritten"},
+get_h:"Das bekommst du",get_pages:"{n}-seitige PDF-Anleitung, jeder Schritt als Nahaufnahme",get_instant:"Sofortiger Download — keine Wartezeit",get_langs:"Diese Ausgabe: {l}",get_price:"Unser günstigster Preis — günstiger als bei Etsy oder Ravelry, in deiner eigenen Währung",pin_save:"Merken",pin_desc:"Dieses Foto teilen",sample_btn:"Kostenlose Leseprobe herunterladen",sample_note:"Ein paar Seiten, damit du die Anleitung vor dem Kauf sehen kannst",more_e:"Mehr zum Häkeln",more_h:"Mehr von {n}",
+  skills:{Beginner:"Anfänger",Easy:"Einfach",Intermediate:"Mittel",Experienced:"Erfahren",Advanced:"Fortgeschritten"},
  cats:{Dolls:"Puppen",Halloween:"Halloween",Christmas:"Weihnachten",Bookmarks:"Lesezeichen",Animals:"Tiere"}},
 NL:{nav_all:"Alle patronen",nav_dolls:"Poppen",nav_halloween:"Halloween",nav_christmas:"Kerst",basket:"Winkelmand",settings:"Instellingen",
  site_lang:"Taal van de website",currency:"Valuta",
@@ -366,7 +386,8 @@ NL:{nav_all:"Alle patronen",nav_dolls:"Poppen",nav_halloween:"Halloween",nav_chr
  materials:"Materialen",tools:"Gereedschap",reviews_e:"Reviews",reviews_h:"Wat kopers zeggen",finished_e:"Afgemaakte projecten",finished_h:"Gemaakt door onze makers",
  designer_e:"De ontwerper",questions_e:"Vragen",before_buy:"Voordat je koopt",choose_lang:"Kies je taal",all_by:"Alle patronen van {n} →",
  content_note:"",added:"Toegevoegd: {t} ({l})",empty_basket:"Je winkelmand is leeg",charged:"afgerekend als {p}",hook_card:"haaknaald {m}",
- skills:{Beginner:"Beginner",Easy:"Makkelijk",Intermediate:"Gemiddeld",Experienced:"Ervaren",Advanced:"Gevorderd"},
+get_h:"Dit krijg je",get_pages:"PDF-patroon van {n} pagina's, elke stap met een close-upfoto",get_instant:"Direct downloaden — geen wachttijd",get_langs:"Deze editie: {l}",get_price:"Onze scherpste prijs — goedkoper dan op Etsy of Ravelry, in je eigen valuta",pin_save:"Opslaan",pin_desc:"Deel deze foto",sample_btn:"Gratis voorbeeld downloaden",sample_note:"Een paar pagina's, zodat je het patroon kunt bekijken voordat je koopt",more_e:"Meer om te maken",more_h:"Meer van {n}",
+  skills:{Beginner:"Beginner",Easy:"Makkelijk",Intermediate:"Gemiddeld",Experienced:"Ervaren",Advanced:"Gevorderd"},
  cats:{Dolls:"Poppen",Halloween:"Halloween",Christmas:"Kerst",Bookmarks:"Boekenleggers",Animals:"Dieren"}},
 DA:{nav_all:"Alle opskrifter",nav_dolls:"Dukker",nav_halloween:"Halloween",nav_christmas:"Jul",basket:"Kurv",settings:"Indstillinger",
  site_lang:"Sprog på hjemmesiden",currency:"Valuta",
@@ -387,7 +408,8 @@ DA:{nav_all:"Alle opskrifter",nav_dolls:"Dukker",nav_halloween:"Halloween",nav_c
  materials:"Materialer",tools:"Værktøj",reviews_e:"Anmeldelser",reviews_h:"Det siger køberne",finished_e:"Færdige projekter",finished_h:"Lavet af vores hæklere",
  designer_e:"Designeren",questions_e:"Spørgsmål",before_buy:"Før du køber",choose_lang:"Vælg dit sprog",all_by:"Se alle opskrifter af {n} →",
  content_note:"",added:"Tilføjet: {t} ({l})",empty_basket:"Din kurv er tom",charged:"betales som {p}",hook_card:"nål {m}",
- skills:{Beginner:"Begynder",Easy:"Let",Intermediate:"Øvet",Experienced:"Erfaren",Advanced:"Avanceret"},
+get_h:"Det får du",get_pages:"{n}-siders PDF-opskrift med et nærbillede til hvert trin",get_instant:"Download med det samme — ingen ventetid",get_langs:"Denne udgave: {l}",get_price:"Vores bedste pris — billigere end på Etsy eller Ravelry, i din egen valuta",pin_save:"Gem",pin_desc:"Del dette billede",sample_btn:"Download en gratis smagsprøve",sample_note:"Et par sider, så du kan se opskriften, inden du køber",more_e:"Mere at lave",more_h:"Mere af {n}",
+  skills:{Beginner:"Begynder",Easy:"Let",Intermediate:"Øvet",Experienced:"Erfaren",Advanced:"Avanceret"},
  cats:{Dolls:"Dukker",Halloween:"Halloween",Christmas:"Jul",Bookmarks:"Bogmærker",Animals:"Dyr"}},
 IT:{nav_all:"Tutti gli schemi",nav_dolls:"Bambole",nav_halloween:"Halloween",nav_christmas:"Natale",basket:"Carrello",settings:"Impostazioni",
  site_lang:"Lingua del sito",currency:"Valuta",
@@ -408,7 +430,8 @@ IT:{nav_all:"Tutti gli schemi",nav_dolls:"Bambole",nav_halloween:"Halloween",nav
  materials:"Materiali",tools:"Strumenti",reviews_e:"Recensioni",reviews_h:"Cosa dicono gli acquirenti",finished_e:"Progetti finiti",finished_h:"Realizzati dalle nostre creative",
  designer_e:"La designer",questions_e:"Domande",before_buy:"Prima di acquistare",choose_lang:"Scegli la lingua",all_by:"Tutti gli schemi di {n} →",
  content_note:"",added:"Aggiunto: {t} ({l})",empty_basket:"Il carrello è vuoto",charged:"addebitato come {p}",hook_card:"uncinetto {m}",
- skills:{Beginner:"Principiante",Easy:"Facile",Intermediate:"Intermedio",Experienced:"Esperto",Advanced:"Avanzato"},
+get_h:"Cosa ricevi",get_pages:"Schema PDF di {n} pagine, ogni passaggio con una foto ravvicinata",get_instant:"Download immediato — nessuna attesa",get_langs:"Questa edizione: {l}",get_price:"Il nostro prezzo migliore — più economico di Etsy o Ravelry, nella tua valuta",pin_save:"Salva",pin_desc:"Condividi questa foto",sample_btn:"Scarica un esempio gratuito",sample_note:"Alcune pagine, per vedere lo schema prima di acquistarlo",more_e:"Altro da realizzare",more_h:"Altri schemi di {n}",
+  skills:{Beginner:"Principiante",Easy:"Facile",Intermediate:"Intermedio",Experienced:"Esperto",Advanced:"Avanzato"},
  cats:{Dolls:"Bambole",Halloween:"Halloween",Christmas:"Natale",Bookmarks:"Segnalibri",Animals:"Animali"}},
 PL:{nav_all:"Wszystkie wzory",nav_dolls:"Lalki",nav_halloween:"Halloween",nav_christmas:"Boże Narodzenie",basket:"Koszyk",settings:"Ustawienia",
  site_lang:"Język strony",currency:"Waluta",
@@ -429,7 +452,8 @@ PL:{nav_all:"Wszystkie wzory",nav_dolls:"Lalki",nav_halloween:"Halloween",nav_ch
  materials:"Materiały",tools:"Narzędzia",reviews_e:"Opinie",reviews_h:"Co mówią kupujący",finished_e:"Gotowe prace",finished_h:"Wykonane przez nasze twórczynie",
  designer_e:"Projektantka",questions_e:"Pytania",before_buy:"Zanim kupisz",choose_lang:"Wybierz język",all_by:"Wszystkie wzory: {n} →",
  content_note:"",added:"Dodano: {t} ({l})",empty_basket:"Twój koszyk jest pusty",charged:"płatność: {p}",hook_card:"szydełko {m}",
- skills:{Beginner:"Początkujący",Easy:"Łatwy",Intermediate:"Średni",Experienced:"Doświadczony",Advanced:"Zaawansowany"},
+get_h:"Co otrzymujesz",get_pages:"{n}-stronicowy wzór PDF, każdy krok ze zdjęciem z bliska",get_instant:"Natychmiastowe pobranie — bez czekania",get_langs:"To wydanie: {l}",get_price:"Nasza najniższa cena — taniej niż na Etsy czy Ravelry, w Twojej walucie",pin_save:"Zapisz",pin_desc:"Udostępnij to zdjęcie",sample_btn:"Pobierz darmową próbkę",sample_note:"Kilka stron, żebyś mogła zobaczyć wzór przed zakupem",more_e:"Więcej do zrobienia",more_h:"Więcej wzorów: {n}",
+  skills:{Beginner:"Początkujący",Easy:"Łatwy",Intermediate:"Średni",Experienced:"Doświadczony",Advanced:"Zaawansowany"},
  cats:{Dolls:"Lalki",Halloween:"Halloween",Christmas:"Boże Narodzenie",Bookmarks:"Zakładki",Animals:"Zwierzęta"}},
 FR:{nav_all:"Tous les patrons",nav_dolls:"Poupées",nav_halloween:"Halloween",nav_christmas:"Noël",basket:"Panier",settings:"Paramètres",
  site_lang:"Langue du site",currency:"Devise",
@@ -450,7 +474,8 @@ FR:{nav_all:"Tous les patrons",nav_dolls:"Poupées",nav_halloween:"Halloween",na
  materials:"Matériel",tools:"Outils",reviews_e:"Avis",reviews_h:"Ce qu'en disent les acheteurs",finished_e:"Réalisations",finished_h:"Réalisés par nos crocheteuses",
  designer_e:"La créatrice",questions_e:"Questions",before_buy:"Avant d'acheter",choose_lang:"Choisissez votre langue",all_by:"Tous les patrons de {n} →",
  content_note:"",added:"Ajouté : {t} ({l})",empty_basket:"Votre panier est vide",charged:"facturé {p}",hook_card:"crochet {m}",
- skills:{Beginner:"Débutant",Easy:"Facile",Intermediate:"Intermédiaire",Experienced:"Confirmé",Advanced:"Avancé"},
+get_h:"Ce que vous recevez",get_pages:"Patron PDF de {n} pages, chaque étape en gros plan",get_instant:"Téléchargement immédiat — pas d'attente",get_langs:"Cette édition : {l}",get_price:"Notre meilleur prix — moins cher que sur Etsy ou Ravelry, dans votre devise",pin_save:"Enregistrer",pin_desc:"Partager cette photo",sample_btn:"Télécharger un exemple gratuit",sample_note:"Quelques pages, pour voir le patron avant d'acheter",more_e:"À réaliser aussi",more_h:"Plus de patrons de {n}",
+  skills:{Beginner:"Débutant",Easy:"Facile",Intermediate:"Intermédiaire",Experienced:"Confirmé",Advanced:"Avancé"},
  cats:{Dolls:"Poupées",Halloween:"Halloween",Christmas:"Noël",Bookmarks:"Marque-pages",Animals:"Animaux"}},
 };
 
@@ -558,10 +583,12 @@ function renderPattern(base){
   const rank = c => { const l=p.languages.find(x=>x.code===c); if(!l.buy) return 9; return (l.buy==="wix"?0:4) + (c===PREFS.ui?0:1); };
   let lang = pref.length ? [...pref].sort((a,b)=>rank(a)-rank(b))[0] : (p.languages.find(l=>l.buy==="wix")?.code || p.languages[0].code);
   const missing = PREFS.plangs.filter(c=>!p.languages.some(l=>l.code===c));
+  const sample = p.tryBeforeYouBuy && !/goo\.gl/.test(p.tryBeforeYouBuy) ? p.tryBeforeYouBuy : null;
+  const moreByDesigner = DATA.pages.filter(x=>x.designerKey===p.designerKey && x.slug!==p.slug).slice(0,4);
   $("#app").innerHTML = `
   <div class="crumbs"><a href="#/">${t("nav_all")}</a> / <a href="#/?cat=${encodeURIComponent(p.categories[0])}">${esc(tCat(p.categories[0]))}</a> / ${esc(p.title)}</div>
   <div class="hero">
-    <div class="gallery"><div class="stage"><div class="main" id="main"></div><button type="button" class="arrow prev" id="prev" aria-label="Previous photo">‹</button><button type="button" class="arrow next" id="next" aria-label="Next photo">›</button><span class="pos" id="pos" aria-live="polite"></span></div><div class="thumbs" id="thumbs"></div><div class="band" aria-label="Pattern facts"><dl>
+    <div class="gallery"><div class="stage"><div class="main" id="main"></div><button type="button" class="pinbtn" id="pinBtn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-2.5 13.5c0 1.2.1 2.8.4 4.1.1.5.8.5 1 0 .3-1 .6-2.6.7-3.4.3.1.9.2 1.4.2 4 0 6-3.3 6-6.7A7 7 0 0 0 12 2z"/></svg>${t("pin_save")}</button><button type="button" class="arrow prev" id="prev" aria-label="Previous photo">‹</button><button type="button" class="arrow next" id="next" aria-label="Next photo">›</button><span class="pos" id="pos" aria-live="polite"></span></div><div class="thumbs" id="thumbs"></div><div class="band" aria-label="Pattern facts"><dl>
     <div><dt>${t("skill_l")}</dt><dd>${tSkill(p.skill)}<div class="dots" aria-hidden="true">${[1,2,3,4,5].map(i=>`<i class="${i<=dots?"on":""}"></i>`).join("")}</div></dd></div>
     <div><dt>${t("hook_l")}</dt><dd>${esc(p.hookLabelShort)}<small>${esc(p.hookSub)}</small></dd></div>
     <div><dt>${t("size_l")}</dt><dd>${esc(p.sizeShort)}<small>${esc(p.sizeSub)}</small></dd></div>
@@ -576,7 +603,14 @@ function renderPattern(base){
       ${missing.length?`<div class="langnote">${t("not_in",{l:missing.map(langName).join(", "),a:p.languages.map(l=>langName(l.code)).join(", ")})}</div>`:""}<fieldset><legend>${t("legend")}</legend><div class="langs" id="langs">
         ${p.languages.map(l=>`<label><input type="radio" name="lang" value="${l.code}" ${l.code===lang?"checked":""}>${FLAGS[l.code]||""}${esc(langName(l.code))}${l.buy?"":` <span class="soon">· ${t("soon")}</span>`}</label>`).join("")}
       </div></fieldset>
+      <div class="getbox"><h3>${t("get_h")}</h3><ul>
+        <li>${t("get_pages",{n:p.pages})}</li>
+        <li id="getLangs"></li>
+        <li>${t("get_instant")}</li>
+        <li>${t("get_price")}</li>
+      </ul></div>
       <div id="buyZone"></div>
+      ${sample?`<a class="samplebtn" href="${sample}" target="_blank" rel="noopener">📄 ${t("sample_btn")}</a><p class="sampnote">${t("sample_note")}</p>`:""}
       <p class="trust"><span>${t("trust1")}</span><span>${t("trust2",{n:p.pages})}</span><span id="trust3"></span></p>
     </div>
   </div>
@@ -587,6 +621,10 @@ function renderPattern(base){
       <p id="termsLine"></p></div>
     <div class="inside" id="inside"></div>
   </section>
+
+  ${moreByDesigner.length?`<section><p class="eyebrow">${t("more_e")}</p><h2>${t("more_h",{n:esc(d.name)})}</h2>
+    <div class="moredesign">${moreByDesigner.map(x=>{const xp=loc(x); return `<a href="#/${x.slug}"><img src="${edImgs(x,PREFS.ui).card}" alt="${esc(xp.title)}" loading="lazy"><span>${esc(xp.title)}</span></a>`;}).join("")}</div>
+  </section>`:""}
 
   <section><p class="eyebrow">${t("before_start")}</p><h2>${t("mats_h2")}</h2>
     <div class="mats">
@@ -656,6 +694,12 @@ function renderPattern(base){
     ytb.replaceWith(f); };
   const ma=$("#makersAll"); if(ma) ma.onclick=()=>{ document.querySelectorAll("#makersGrid .more").forEach(f=>f.hidden=false); ma.remove(); };
   $("#toLangs").onclick = e => { e.preventDefault(); $("#langs").scrollIntoView({behavior:"smooth",block:"center"}); };
+  $("#getLangs").textContent = t("get_langs",{l:p.languages.map(l=>langName(l.code)).join(", ")});
+  $("#pinBtn").onclick = () => {
+    const img = slides[0] ? slides[0].thumb || (slides[0].html.match(/src="([^"]+)"/)||[])[1] : edImgs(base, lang).hero;
+    const href = location.href.split("#")[0] + "#/" + p.slug;
+    window.open(`https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(href)}&media=${encodeURIComponent(img)}&description=${encodeURIComponent(p.title+" — "+t("pin_desc"))}`, "_blank", "noopener,width=750,height=650");
+  };
 
   function renderBuy(){
     const l = p.languages.find(x=>x.code===lang);
