@@ -205,6 +205,9 @@ section{margin-block:clamp(48px,7vw,88px)}
 .mats aside ul{columns:1}
 .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px}
 .chips span{background:var(--sage-soft); color:var(--ink); border-radius:999px; padding:.35rem .8rem; font-size:.88rem; font-weight:600}
+.techrow{margin-top:28px}
+.techrow h3{font-size:1.25rem; margin-bottom:10px}
+.techrow .chips{margin-top:0}
 
 .videos{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:18px; margin-top:20px}
 .vcard{background:var(--paper); border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; flex-direction:column}
@@ -338,7 +341,7 @@ EN:{nav_all:"All patterns",nav_dolls:"Dolls",nav_halloween:"Halloween",nav_chris
  rav_note:"This edition isn't in our shop yet, so it's sold on Ravelry for now. It opens in a new tab.",
  notify_btn:"Tell me when it's available",notify_note:"This edition exists but isn't for sale online yet. Email info@littleowlshut.com and we'll send it to you.",
  not_in:"Not yet available in: {l}. Available in: {a}.",trust1:"Instant PDF download",trust2:"{n} pages with step-by-step photos",trust3:"US terms, UK chart included",
- skill_l:"Skill level",hook_l:"Hook",size_l:"Finished size",yarn_l:"Yarn",about:"About this pattern",before_start:"Before you start",mats_h2:"Materials and tools",
+ skill_l:"Skill level",hook_l:"Hook",size_l:"Finished size",yarn_l:"Yarn",about:"About this pattern",before_start:"Before you start",mats_h2:"Materials and tools",tech_h:"Skills used in this pattern",
  materials:"Materials",tools:"Tools",reviews_e:"Reviews",reviews_h:"What buyers say",finished_e:"Finished projects",finished_h:"Made by our makers",
  designer_e:"The designer",questions_e:"Questions",before_buy:"Before you buy",choose_lang:"Choose your language",all_by:"See all patterns by {n} →",
  content_note:"",added:"Added: {t} ({l})",empty_basket:"Your basket is empty",charged:"charged as {p}",hook_card:"{m} hook",
@@ -360,7 +363,7 @@ DE:{nav_all:"Alle Anleitungen",nav_dolls:"Puppen",nav_halloween:"Halloween",nav_
  rav_note:"Diese Ausgabe gibt es noch nicht in unserem Shop, deshalb wird sie vorerst über Ravelry verkauft. Öffnet sich in einem neuen Tab.",
  notify_btn:"Benachrichtige mich, wenn verfügbar",notify_note:"Diese Ausgabe gibt es, sie ist aber noch nicht online erhältlich. Schreib an info@littleowlshut.com, dann schicken wir sie dir.",
  not_in:"Noch nicht verfügbar in: {l}. Erhältlich in: {a}.",trust1:"Sofortiger PDF-Download",trust2:"{n} Seiten mit Schritt-für-Schritt-Fotos",trust3:"US-Begriffe, UK-Tabelle inklusive",
- skill_l:"Schwierigkeit",hook_l:"Häkelnadel",size_l:"Fertige Größe",yarn_l:"Garn",about:"Über diese Anleitung",before_start:"Bevor du beginnst",mats_h2:"Material und Werkzeug",
+ skill_l:"Schwierigkeit",hook_l:"Häkelnadel",size_l:"Fertige Größe",yarn_l:"Garn",about:"Über diese Anleitung",before_start:"Bevor du beginnst",mats_h2:"Material und Werkzeug",tech_h:"In dieser Anleitung verwendete Techniken",
  materials:"Material",tools:"Werkzeug",reviews_e:"Bewertungen",reviews_h:"Das sagen Käuferinnen",finished_e:"Fertige Projekte",finished_h:"Von unseren Häkelfans gemacht",
  designer_e:"Die Designerin",questions_e:"Fragen",before_buy:"Vor dem Kauf",choose_lang:"Sprache wählen",all_by:"Alle Anleitungen von {n} →",
  content_note:"",added:"Hinzugefügt: {t} ({l})",empty_basket:"Dein Warenkorb ist leer",charged:"abgerechnet als {p}",hook_card:"Nadel {m}",
@@ -382,7 +385,7 @@ NL:{nav_all:"Alle patronen",nav_dolls:"Poppen",nav_halloween:"Halloween",nav_chr
  rav_note:"Deze editie staat nog niet in onze winkel en wordt voorlopig via Ravelry verkocht. Opent in een nieuw tabblad.",
  notify_btn:"Laat me weten wanneer het beschikbaar is",notify_note:"Deze editie bestaat, maar is nog niet online te koop. Mail info@littleowlshut.com en we sturen hem je toe.",
  not_in:"Nog niet beschikbaar in: {l}. Wel beschikbaar in: {a}.",trust1:"Direct te downloaden als pdf",trust2:"{n} pagina's met stap-voor-stap foto's",trust3:"Amerikaanse termen, Britse tabel inbegrepen",
- skill_l:"Niveau",hook_l:"Haaknaald",size_l:"Afmeting",yarn_l:"Garen",about:"Over dit patroon",before_start:"Voordat je begint",mats_h2:"Materialen en gereedschap",
+ skill_l:"Niveau",hook_l:"Haaknaald",size_l:"Afmeting",yarn_l:"Garen",about:"Over dit patroon",before_start:"Voordat je begint",mats_h2:"Materialen en gereedschap",tech_h:"Technieken in dit patroon",
  materials:"Materialen",tools:"Gereedschap",reviews_e:"Reviews",reviews_h:"Wat kopers zeggen",finished_e:"Afgemaakte projecten",finished_h:"Gemaakt door onze makers",
  designer_e:"De ontwerper",questions_e:"Vragen",before_buy:"Voordat je koopt",choose_lang:"Kies je taal",all_by:"Alle patronen van {n} →",
  content_note:"",added:"Toegevoegd: {t} ({l})",empty_basket:"Je winkelmand is leeg",charged:"afgerekend als {p}",hook_card:"haaknaald {m}",
@@ -404,7 +407,7 @@ DA:{nav_all:"Alle opskrifter",nav_dolls:"Dukker",nav_halloween:"Halloween",nav_c
  rav_note:"Denne udgave er ikke i vores butik endnu, så den sælges indtil videre på Ravelry. Åbner i en ny fane.",
  notify_btn:"Giv mig besked, når den er klar",notify_note:"Denne udgave findes, men kan endnu ikke købes online. Skriv til info@littleowlshut.com, så sender vi den til dig.",
  not_in:"Endnu ikke tilgængelig på: {l}. Fås på: {a}.",trust1:"Øjeblikkelig PDF-download",trust2:"{n} sider med trin-for-trin-fotos",trust3:"Amerikanske termer, britisk oversigt medfølger",
- skill_l:"Niveau",hook_l:"Hæklenål",size_l:"Færdig størrelse",yarn_l:"Garn",about:"Om opskriften",before_start:"Før du går i gang",mats_h2:"Materialer og værktøj",
+ skill_l:"Niveau",hook_l:"Hæklenål",size_l:"Færdig størrelse",yarn_l:"Garn",about:"Om opskriften",before_start:"Før du går i gang",mats_h2:"Materialer og værktøj",tech_h:"Teknikker i denne opskrift",
  materials:"Materialer",tools:"Værktøj",reviews_e:"Anmeldelser",reviews_h:"Det siger køberne",finished_e:"Færdige projekter",finished_h:"Lavet af vores hæklere",
  designer_e:"Designeren",questions_e:"Spørgsmål",before_buy:"Før du køber",choose_lang:"Vælg dit sprog",all_by:"Se alle opskrifter af {n} →",
  content_note:"",added:"Tilføjet: {t} ({l})",empty_basket:"Din kurv er tom",charged:"betales som {p}",hook_card:"nål {m}",
@@ -426,7 +429,7 @@ IT:{nav_all:"Tutti gli schemi",nav_dolls:"Bambole",nav_halloween:"Halloween",nav
  rav_note:"Questa edizione non è ancora nel nostro negozio, quindi per ora è in vendita su Ravelry. Si apre in una nuova scheda.",
  notify_btn:"Avvisami quando è disponibile",notify_note:"Questa edizione esiste ma non è ancora in vendita online. Scrivi a info@littleowlshut.com e te la invieremo.",
  not_in:"Non ancora disponibile in: {l}. Disponibile in: {a}.",trust1:"Download immediato del PDF",trust2:"{n} pagine con foto passo passo",trust3:"Termini USA, tabella UK inclusa",
- skill_l:"Livello",hook_l:"Uncinetto",size_l:"Misura finita",yarn_l:"Filato",about:"Informazioni sullo schema",before_start:"Prima di iniziare",mats_h2:"Materiali e strumenti",
+ skill_l:"Livello",hook_l:"Uncinetto",size_l:"Misura finita",yarn_l:"Filato",about:"Informazioni sullo schema",before_start:"Prima di iniziare",mats_h2:"Materiali e strumenti",tech_h:"Tecniche usate in questo schema",
  materials:"Materiali",tools:"Strumenti",reviews_e:"Recensioni",reviews_h:"Cosa dicono gli acquirenti",finished_e:"Progetti finiti",finished_h:"Realizzati dalle nostre creative",
  designer_e:"La designer",questions_e:"Domande",before_buy:"Prima di acquistare",choose_lang:"Scegli la lingua",all_by:"Tutti gli schemi di {n} →",
  content_note:"",added:"Aggiunto: {t} ({l})",empty_basket:"Il carrello è vuoto",charged:"addebitato come {p}",hook_card:"uncinetto {m}",
@@ -448,7 +451,7 @@ PL:{nav_all:"Wszystkie wzory",nav_dolls:"Lalki",nav_halloween:"Halloween",nav_ch
  rav_note:"Tego wydania nie ma jeszcze w naszym sklepie, dlatego na razie sprzedajemy je na Ravelry. Otworzy się w nowej karcie.",
  notify_btn:"Powiadom mnie, gdy będzie dostępny",notify_note:"To wydanie istnieje, ale nie jest jeszcze dostępne online. Napisz na info@littleowlshut.com, a wyślemy je do Ciebie.",
  not_in:"Jeszcze niedostępny w językach: {l}. Dostępny w: {a}.",trust1:"Natychmiastowe pobranie PDF",trust2:"{n} stron ze zdjęciami krok po kroku",trust3:"Terminologia US, tabela UK w zestawie",
- skill_l:"Poziom",hook_l:"Szydełko",size_l:"Wymiary gotowej pracy",yarn_l:"Włóczka",about:"O wzorze",before_start:"Zanim zaczniesz",mats_h2:"Materiały i narzędzia",
+ skill_l:"Poziom",hook_l:"Szydełko",size_l:"Wymiary gotowej pracy",yarn_l:"Włóczka",about:"O wzorze",before_start:"Zanim zaczniesz",mats_h2:"Materiały i narzędzia",tech_h:"Techniki użyte w tym wzorze",
  materials:"Materiały",tools:"Narzędzia",reviews_e:"Opinie",reviews_h:"Co mówią kupujący",finished_e:"Gotowe prace",finished_h:"Wykonane przez nasze twórczynie",
  designer_e:"Projektantka",questions_e:"Pytania",before_buy:"Zanim kupisz",choose_lang:"Wybierz język",all_by:"Wszystkie wzory: {n} →",
  content_note:"",added:"Dodano: {t} ({l})",empty_basket:"Twój koszyk jest pusty",charged:"płatność: {p}",hook_card:"szydełko {m}",
@@ -470,7 +473,7 @@ FR:{nav_all:"Tous les patrons",nav_dolls:"Poupées",nav_halloween:"Halloween",na
  rav_note:"Cette édition n'est pas encore dans notre boutique : elle est vendue sur Ravelry pour l'instant. S'ouvre dans un nouvel onglet.",
  notify_btn:"Prévenez-moi quand il sera disponible",notify_note:"Cette édition existe mais n'est pas encore en vente en ligne. Écrivez à info@littleowlshut.com et nous vous l'enverrons.",
  not_in:"Pas encore disponible en : {l}. Disponible en : {a}.",trust1:"Téléchargement PDF immédiat",trust2:"{n} pages avec photos pas à pas",trust3:"Termes US, tableau UK inclus",
- skill_l:"Niveau",hook_l:"Crochet",size_l:"Taille finale",yarn_l:"Fil",about:"À propos du patron",before_start:"Avant de commencer",mats_h2:"Matériel et outils",
+ skill_l:"Niveau",hook_l:"Crochet",size_l:"Taille finale",yarn_l:"Fil",about:"À propos du patron",before_start:"Avant de commencer",mats_h2:"Matériel et outils",tech_h:"Techniques utilisées dans ce patron",
  materials:"Matériel",tools:"Outils",reviews_e:"Avis",reviews_h:"Ce qu'en disent les acheteurs",finished_e:"Réalisations",finished_h:"Réalisés par nos crocheteuses",
  designer_e:"La créatrice",questions_e:"Questions",before_buy:"Avant d'acheter",choose_lang:"Choisissez votre langue",all_by:"Tous les patrons de {n} →",
  content_note:"",added:"Ajouté : {t} ({l})",empty_basket:"Votre panier est vide",charged:"facturé {p}",hook_card:"crochet {m}",
@@ -629,9 +632,9 @@ function renderPattern(base){
   <section><p class="eyebrow">${t("before_start")}</p><h2>${t("mats_h2")}</h2>
     <div class="mats">
       <div><h3>${t("materials")}</h3><ul>${p.materials.map(([a,b])=>`<li><b>${esc(a)}</b>${b?` <span>– ${esc(b)}</span>`:""}</li>`).join("")}</ul></div>
-      <aside><h3>${t("tools")}</h3><ul>${p.tools.map(([a,b])=>`<li><b>${esc(a)}</b>${b?` <span>– ${esc(b)}</span>`:""}</li>`).join("")}</ul>
-        <div class="chips" aria-label="Techniques used">${p.techniques.map(t=>`<span>${esc(t)}</span>`).join("")}</div></aside>
+      <aside><h3>${t("tools")}</h3><ul>${p.tools.map(([a,b])=>`<li><b>${esc(a)}</b>${b?` <span>– ${esc(b)}</span>`:""}</li>`).join("")}</ul></aside>
     </div>
+    ${p.techniques && p.techniques.length?`<div class="techrow"><h3>${t("tech_h")}</h3><div class="chips" aria-label="${t("tech_h")}">${p.techniques.map(tc=>`<span>${esc(tc)}</span>`).join("")}</div></div>`:""}
   </section>
 
   ${p.tutorial?`<section><p class="eyebrow">${t("watch_e")}</p><h2>${esc(p.watchTitle||"")}</h2><div class="videos">
