@@ -133,8 +133,12 @@ dialog.settings::backdrop{background:rgba(30,22,17,.45)}
 .thumbs img{width:100%; height:100%; object-fit:cover}
 .thumbs .vid{position:relative}
 .thumbs .vid::after{content:"▶"; position:absolute; inset:0; display:grid; place-items:center; color:#fff; font-size:1.1rem; background:rgba(30,22,17,.35)}
-.buy{display:grid; gap:14px; position:sticky; top:calc(env(safe-area-inset-top,0px) + 16px)}
+.buycol{min-width:0}
+.buy{display:grid; gap:14px}
 .buy h1{font-size:clamp(2.2rem,4.4vw,3.3rem)}
+.aboutinline{margin-top:32px; padding-top:28px; border-top:1px solid var(--line)}
+.aboutinline p{max-width:62ch}
+.aboutinline h2{margin-bottom:14px}
 .byline{color:var(--muted); margin-top:-8px}
 .byline a{color:var(--ink); font-weight:700; text-decoration-color:var(--accent)}
 .lead{font-size:1rem; margin:0}
@@ -250,6 +254,11 @@ section{margin-block:clamp(48px,7vw,88px)}
 .final .cta{width:auto; padding-inline:2.2rem}
 
 .mbar{display:none}
+body.pp .mbar{display:flex; position:fixed; left:0; right:0; bottom:0; z-index:20; gap:12px; align-items:center; justify-content:space-between; background:var(--paper); border-top:1px solid var(--line); padding:10px clamp(16px,4vw,48px) calc(10px + env(safe-area-inset-bottom,0px))}
+.mbar .cta{width:auto; padding:.8rem 1.2rem; font-size:.95rem}
+.mbar b{font:700 1.3rem var(--display)}
+.mbar small{display:block; color:var(--muted); font-size:.75rem}
+.mbar > div{max-width:70ch}
 .toast{position:fixed; left:50%; bottom:calc(88px + env(safe-area-inset-bottom,0px)); transform:translate(-50%,20px); opacity:0; background:var(--ink); color:var(--ground); padding:.7rem 1.1rem; border-radius:10px; font-weight:700; font-size:.92rem; transition:.25s; pointer-events:none; z-index:30; max-width:calc(100% - 32px)}
 .toast.show{opacity:1; transform:translate(-50%,0)}
 
@@ -264,10 +273,6 @@ section{margin-block:clamp(48px,7vw,88px)}
   .mats ul{columns:1}
   .top nav{display:none}
   .count{margin-left:0}
-  body.pp .mbar{display:flex; position:fixed; left:0; right:0; bottom:0; z-index:20; gap:12px; align-items:center; justify-content:space-between; background:var(--paper); border-top:1px solid var(--line); padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
-  .mbar .cta{width:auto; padding:.8rem 1.2rem; font-size:.95rem}
-  .mbar b{font:700 1.3rem var(--display)}
-  .mbar small{display:block; color:var(--muted); font-size:.75rem}
 }
 @media (max-width:480px){ .inside{grid-template-columns:minmax(0,1fr)} .band dl{grid-template-columns:repeat(2,minmax(0,1fr)); padding:16px 28px} .trust{grid-template-columns:minmax(0,1fr)} .grid{columns:2 150px; column-gap:12px} }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
@@ -597,6 +602,7 @@ function renderPattern(base){
     <div><dt>${t("size_l")}</dt><dd>${esc(p.sizeShort)}<small>${esc(p.sizeSub)}</small></dd></div>
     <div><dt>${t("yarn_l")}</dt><dd>${esc(p.yarn[0])}<small>${esc(p.yarn[1])}</small></dd></div>
   </dl></div></div>
+    <div class="buycol">
     <div class="buy">
       <div><p class="eyebrow">${esc(p.eyebrow)}</p><h1>${esc(p.title)}</h1></div>
       <p class="byline">${t("designed_by")} <a href="#/?designer=${p.designerKey}">${esc(d.name)}</a> · ${t("pattern_no")} ${p.id}</p>
@@ -616,14 +622,12 @@ function renderPattern(base){
       ${sample?`<a class="samplebtn" href="${sample}" target="_blank" rel="noopener">📄 ${t("sample_btn")}</a><p class="sampnote">${t("sample_note")}</p>`:""}
       <p class="trust"><span>${t("trust1")}</span><span>${t("trust2",{n:p.pages})}</span><span id="trust3"></span></p>
     </div>
+    <div class="aboutinline"><p class="eyebrow">${t("about")}</p><h2>${esc(p.aboutTitle)}</h2>${p.about.map(t=>`<p>${esc(t)}</p>`).join("")}
+      <p id="termsLine"></p>
+      <div class="inside" id="inside"></div>
+    </div>
+    </div>
   </div>
-
-
-  <section class="split" style="margin-top:clamp(56px,7vw,96px)">
-    <div class="prose"><p class="eyebrow">${t("about")}</p><h2>${esc(p.aboutTitle)}</h2>${p.about.map(t=>`<p>${esc(t)}</p>`).join("")}
-      <p id="termsLine"></p></div>
-    <div class="inside" id="inside"></div>
-  </section>
 
   ${moreByDesigner.length?`<section><p class="eyebrow">${t("more_e")}</p><h2>${t("more_h",{n:esc(d.name)})}</h2>
     <div class="moredesign">${moreByDesigner.map(x=>{const xp=loc(x); return `<a href="#/${x.slug}"><img src="${edImgs(x,PREFS.ui).card}" alt="${esc(xp.title)}" loading="lazy"><span>${esc(xp.title)}</span></a>`;}).join("")}</div>
