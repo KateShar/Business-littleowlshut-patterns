@@ -788,6 +788,7 @@ function renderPattern(base){
 }
 
 /* ---------- basket + Wix checkout ---------- */
+const CHECKOUT_LANGS = ["DE"];  // site languages set to Visible in Wix Multilingual: Wix shows its checkout in these (hidden ones stay English)
 const WIX = { clientId: "cc40edea-1299-4afb-b87f-dd336a1dca83", storesAppId: "215238eb-22a5-4c36-9e7b-e7c08025e04e" };
 const BT = new Proxy({}, { get: (_, k) => k==="empty" ? t("empty_basket") : t("b_"+k) });
 function basketGet(){ try{ return JSON.parse(store.get("hubBasket")) || [] }catch(e){ return [] } }
@@ -820,7 +821,7 @@ function basketRender(){
   $("#bAlso").querySelectorAll("a").forEach(a=>a.onclick=()=>$("#basketDlg").close());
   const sum = b.reduce((s,x)=>s+(+x.price),0);
   $("#bTotal").innerHTML = b.length ? `<span>${BT.total}</span><span>${shownCur()==="GBP"?"":"≈ "}${fmt(sum)}</span>` : "";
-  $("#bNote").textContent = b.length ? BT.note + (BT.lang ? " " + BT.lang : "") : "";
+  $("#bNote").textContent = b.length ? BT.note + (BT.lang && !CHECKOUT_LANGS.includes(PREFS.ui) ? " " + BT.lang : "") : "";
   const go = $("#bGo"); go.textContent = BT.go; go.disabled = !b.length; go.style.opacity = b.length ? 1 : .5;
 }
 function openBasket(){ basketRender(); $("#basketDlg").showModal(); }
@@ -855,7 +856,8 @@ async function checkout(){
       catalogItems: b.map(x=>({ quantity: 1, catalogReference: { appId: WIX.storesAppId, catalogItemId: x.pid } })) }, tok)).cart;
     const back = new URL("thanks.html", document.baseURI).href;
     const rs = await wixFetch("redirect-session/v1/redirect-session", { ecomCheckout: { checkoutId: cart.id },
-      callbacks: { postFlowUrl: location.href, thankYouPageUrl: back } }, tok);
+      callbacks: { postFlowUrl: location.href, thankYouPageUrl: back },
+      ...(CHECKOUT_LANGS.includes(PREFS.ui) ? { preferences: { additionalQueryParameters: { lang: PREFS.ui.toLowerCase() } } } : {}) }, tok);
     location.href = withCurrency(rs.redirectSession.fullUrl);
   }catch(e){
     console.error(e); store.set("wixTok", ""); go.disabled = false; go.textContent = BT.go; toast(BT.err);
