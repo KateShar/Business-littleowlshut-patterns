@@ -788,7 +788,7 @@ function renderPattern(base){
 }
 
 /* ---------- basket + Wix checkout ---------- */
-const CHECKOUT_LANGS = ["DE"];  // site languages set to Visible in Wix Multilingual: Wix shows its checkout in these (hidden ones stay English)
+const CHECKOUT_LANGS = ["DE","NL","DA","IT","PL","FR"];  // site languages set to Visible in Wix Multilingual: Wix shows its checkout in these (hidden ones stay English)
 const WIX = { clientId: "cc40edea-1299-4afb-b87f-dd336a1dca83", storesAppId: "215238eb-22a5-4c36-9e7b-e7c08025e04e" };
 const BT = new Proxy({}, { get: (_, k) => k==="empty" ? t("empty_basket") : t("b_"+k) });
 function basketGet(){ try{ return JSON.parse(store.get("hubBasket")) || [] }catch(e){ return [] } }
