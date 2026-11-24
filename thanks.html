@@ -9,32 +9,52 @@
   :root{--ink:#2b2420;--ground:#fbf7f1;--accent:#c8643b}
   body{margin:0;background:var(--ground);color:var(--ink);font:17px/1.6 Georgia,serif;display:grid;place-items:center;min-height:100vh;padding:16px;box-sizing:border-box}
   main{max-width:560px;text-align:center}
+  .brand{display:inline-flex;flex-direction:column;align-items:center;gap:.2em;color:var(--ink);text-decoration:none;font-size:1.3rem;font-weight:700;margin-bottom:.6em}
+  .brand img{height:64px;width:auto}
+  .brand i{font-weight:500;color:var(--accent)}
+  .fb{margin-top:2.4em;padding-top:1.4em;border-top:1px solid #eadfce;font-size:.95rem}
+  .fb h2{font-size:1.15rem;margin:0 0 .3em}
+  .fb p{margin:0 0 .9em;opacity:.85}
+  .fb button{font:700 .95rem system-ui,sans-serif;color:var(--ink);background:transparent;border:1px solid var(--ink);border-radius:999px;padding:.6em 1.2em;cursor:pointer}
   h1{font-size:2rem;margin:.2em 0}
-  a.cta.dl{background:var(--accent);margin:.2em 0 .6em;font-size:1.05rem}
+  a.cta.dl{background:var(--accent);margin:.6em 0 0;font-size:1.25rem;padding:.9em 1.6em}
+  .note{font-size:.9rem;opacity:.75;margin:.5em 0 0}
+  .steps{background:#fff;border:1px solid #eadfce;border-radius:16px;padding:1.1em 1.2em;margin:1.4em 0;text-align:left}
+  .step{display:flex;align-items:center;gap:.8em;margin:.2em 0 .7em}
+  .step .ic{font-size:1.9rem;line-height:1;flex:none}
+  .step p{margin:0;font-size:1.2rem;line-height:1.35}
+  .step b{background:#ffe9a8;padding:.05em .3em;border-radius:5px}
+  .help{margin:.2em 0 0;font-size:.95rem;opacity:.85;text-align:center}
   a.cta[hidden]{display:none}
   a.cta{display:inline-block;margin-top:1.2em;background:var(--ink);color:var(--ground);padding:.8em 1.4em;border-radius:999px;text-decoration:none;font-family:system-ui,sans-serif;font-weight:700}
 </style>
 </head>
 <body>
 <main>
-  <p>🦉</p>
+  <a class="brand" href="./"><img src="logo.png" alt="" width="72" height="64"><span>LittleOwlsHut <i>Patterns</i></span></a>
   <h1 id="ty_title">Thank you for your order!</h1>
-  <p id="ty_p">Your pattern download link is on its way by email.
-     If it hasn't arrived within a few minutes, please check your spam folder, or email
-     <a href="mailto:info@littleowlshut.com">info@littleowlshut.com</a>.</p>
   <a class="cta dl" id="ty_dl" hidden></a>
+  <p class="note" id="ty_dlnote" hidden>Opens your order with the PDF files, ready to save.</p>
+  <div class="steps">
+    <div class="step"><span class="ic">✉️</span><p id="ty_mail">Your download link is also sent to your <b>email</b>.</p></div>
+    <div class="step"><span class="ic">📂</span><p id="ty_spam">Not there after a few minutes? Please check your <b>spam</b> folder.</p></div>
+    <p class="help" id="ty_help">Still nothing? Write to {m} and we will send it again.</p>
+  </div>
   <p><span id="ty_sign">Happy crocheting!</span><br>Kate, LittleOwlsHut</p>
   <a class="cta" href="./" id="ty_back">Back to the patterns</a>
+  <div class="fb" data-feedback hidden></div>
 </main>
 <script>
 try{localStorage.removeItem("hubBasket")}catch(e){}
-try{ const TY={"EN": {"ty_title": "Thank you for your order!", "ty_p": "Your pattern download link is on its way by email. If it hasn't arrived within a few minutes, please check your spam folder, or email info@littleowlshut.com.", "ty_sign": "Happy crocheting!", "ty_back": "Back to the patterns"}, "DA": {"ty_title": "Tak for din bestilling!", "ty_p": "Dit downloadlink til mønsteret er på vej på e-mail. Hvis det ikke er kommet inden for et par minutter, så tjek din spam-mappe, eller skriv til info@littleowlshut.com.", "ty_sign": "God fornøjelse med hæklingen!", "ty_back": "Tilbage til mønstrene"}, "DE": {"ty_title": "Vielen Dank für deine Bestellung!", "ty_p": "Der Download-Link für deine Anleitung ist per E-Mail unterwegs. Falls nach ein paar Minuten nichts angekommen ist, schau bitte in deinem Spam-Ordner nach oder schreib an info@littleowlshut.com.", "ty_sign": "Viel Freude beim Häkeln!", "ty_back": "Zurück zu den Anleitungen"}, "FR": {"ty_title": "Merci pour ta commande !", "ty_p": "Le lien de téléchargement de ton patron arrive par e-mail. S’il n’est pas arrivé d’ici quelques minutes, vérifie ton dossier spam, ou écris à info@littleowlshut.com.", "ty_sign": "Bon crochet !", "ty_back": "Retour aux patrons"}, "IT": {"ty_title": "Grazie per il tuo ordine!", "ty_p": "Il link per scaricare lo schema ti arriverà via email. Se non arriva entro qualche minuto, controlla la cartella spam oppure scrivi a info@littleowlshut.com.", "ty_sign": "Buon uncinetto!", "ty_back": "Torna agli schemi"}, "NL": {"ty_title": "Bedankt voor je bestelling!", "ty_p": "De downloadlink van je patroon komt eraan per e-mail. Nog niets ontvangen na een paar minuten? Kijk dan even in je spammap, of mail naar info@littleowlshut.com.", "ty_sign": "Veel haakplezier!", "ty_back": "Terug naar de patronen"}, "PL": {"ty_title": "Dziękujemy za zamówienie!", "ty_p": "Link do pobrania wzoru jest już w drodze na twój e-mail. Jeśli nie dotrze w ciągu kilku minut, sprawdź folder ze spamem albo napisz na info@littleowlshut.com.", "ty_sign": "Miłego dziergania!", "ty_back": "Wróć do wzorów"}}, ui=(JSON.parse(localStorage.getItem("hubPrefs"))||{}).ui, d=TY[ui];
-  if(d){ document.documentElement.lang=ui.toLowerCase(); for(const [k,v] of Object.entries(d)){ const el=document.getElementById(k); if(el) el.textContent=v; } } }catch(e){}
+try{ const TY={"EN": {"ty_title": "Thank you for your order!", "ty_dlnote": "Opens your order with the PDF files, ready to save.", "ty_mail": "Your download link is also sent to your <b>email</b>.", "ty_spam": "Not there after a few minutes? Please check your <b>spam</b> folder.", "ty_help": "Still nothing? Write to {m} and we will send it again.", "ty_sign": "Happy crocheting!", "ty_back": "Back to the patterns"}, "DA": {"ty_title": "Tak for din bestilling!", "ty_dlnote": "Åbner din ordre med PDF-filerne, klar til at gemme.", "ty_mail": "Downloadlinket er også sendt til din <b>e-mail</b>.", "ty_spam": "Ikke kommet efter et par minutter? Tjek din <b>spam</b>-mappe.", "ty_help": "Stadig ingenting? Skriv til {m}, så sender vi det igen.", "ty_sign": "God fornøjelse med hæklingen!", "ty_back": "Tilbage til mønstrene"}, "DE": {"ty_title": "Vielen Dank für deine Bestellung!", "ty_dlnote": "Öffnet deine Bestellung mit den PDF-Dateien zum Speichern.", "ty_mail": "Der Download-Link kommt auch per <b>E-Mail</b>.", "ty_spam": "Nach ein paar Minuten noch nichts da? Schau bitte in deinem <b>Spam</b>-Ordner nach.", "ty_help": "Immer noch nichts? Schreib an {m}, wir schicken ihn noch einmal.", "ty_sign": "Viel Freude beim Häkeln!", "ty_back": "Zurück zu den Anleitungen"}, "FR": {"ty_title": "Merci pour ta commande !", "ty_dlnote": "Ouvre ta commande avec les fichiers PDF, prêts à enregistrer.", "ty_mail": "Le lien de téléchargement est aussi envoyé à ton adresse <b>e-mail</b>.", "ty_spam": "Rien reçu après quelques minutes ? Vérifie ton dossier <b>spam</b>.", "ty_help": "Toujours rien ? Écris à {m} et nous te le renverrons.", "ty_sign": "Bon crochet !", "ty_back": "Retour aux patrons"}, "IT": {"ty_title": "Grazie per il tuo ordine!", "ty_dlnote": "Apre il tuo ordine con i file PDF, pronti da salvare.", "ty_mail": "Il link per scaricare è stato inviato anche alla tua <b>email</b>.", "ty_spam": "Non è arrivato dopo qualche minuto? Controlla la cartella <b>spam</b>.", "ty_help": "Ancora niente? Scrivi a {m} e te lo rimandiamo.", "ty_sign": "Buon uncinetto!", "ty_back": "Torna agli schemi"}, "NL": {"ty_title": "Bedankt voor je bestelling!", "ty_dlnote": "Opent je bestelling met de pdf-bestanden om op te slaan.", "ty_mail": "De downloadlink is ook naar je <b>e-mail</b> gestuurd.", "ty_spam": "Na een paar minuten nog niets? Kijk dan in je <b>spam</b>map.", "ty_help": "Nog steeds niets? Mail naar {m}, dan sturen we hem opnieuw.", "ty_sign": "Veel haakplezier!", "ty_back": "Terug naar de patronen"}, "PL": {"ty_title": "Dziękujemy za zamówienie!", "ty_dlnote": "Otwiera twoje zamówienie z plikami PDF, gotowymi do zapisania.", "ty_mail": "Link do pobrania wysłaliśmy też na twój <b>e-mail</b>.", "ty_spam": "Nie dotarł po kilku minutach? Sprawdź folder <b>spam</b>.", "ty_help": "Nadal nic? Napisz na {m}, wyślemy go ponownie.", "ty_sign": "Miłego dziergania!", "ty_back": "Wróć do wzorów"}}, ui=(JSON.parse(localStorage.getItem("hubPrefs"))||{}).ui, d=TY[ui];
+  if(d){ document.documentElement.lang=ui.toLowerCase(); for(const [k,v] of Object.entries(d)){ const el=document.getElementById(k); if(el){ if(/^ty_(mail|spam)$/.test(k)) el.innerHTML=v; else el.textContent=v; } } } }catch(e){}
+try{ const h=document.getElementById("ty_help"), a=document.createElement("a"), parts=h.textContent.split("{m}"); a.href="mailto:info@littleowlshut.com"; a.textContent="info@littleowlshut.com"; h.textContent=""; h.append(parts[0], a, parts[1]||""); }catch(e){}
 // Download button: the shop's own order page, which lists the PDF download links for this order (same browser, right after paying)
 try{ const id=new URLSearchParams(location.search).get("orderId"), ui=((JSON.parse(localStorage.getItem("hubPrefs"))||{}).ui||"EN");
   const DL={EN:"Download your patterns",DE:"Anleitungen herunterladen",NL:"Download je patronen",DA:"Download dine opskrifter",IT:"Scarica i tuoi schemi",PL:"Pobierz swoje wzory",FR:"Télécharger tes patrons"};
   if(/^[0-9a-f-]{36}$/.test(id||"")){ const a=document.getElementById("ty_dl");
-    a.href="https://www.littleowlshut.com/"+(ui!=="EN"&&DL[ui]?ui.toLowerCase()+"/":"")+"thank-you-page/"+id; a.textContent="⬇ "+(DL[ui]||DL.EN); a.hidden=false; } }catch(e){}
+    a.href="https://www.littleowlshut.com/"+(ui!=="EN"&&DL[ui]?ui.toLowerCase()+"/":"")+"thank-you-page/"+id; a.textContent="⬇ "+(DL[ui]||DL.EN); a.hidden=false; document.getElementById("ty_dlnote").hidden=false; } }catch(e){}
 </script>
+<script src="feedback.js"></script>
 </body>
 </html>
